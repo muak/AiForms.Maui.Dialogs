@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<extra:DialogView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:extra="clr-namespace:AiForms.Dialogs;assembly=AiForms.Maui.Dialogs"
+    x:Class="Sample.Views.TestDialog"
+    HorizontalLayoutAlignment="Center"
+    VerticalLayoutAlignment="Center"
+    BackgroundColor="AliceBlue"
+    UseCurrentPageLocation="False"
+    Margin="16"
+    Padding="10"
+    CornerRadius="16"
+    OverlayColor="#80000000"
+    >
+    <StackLayout BackgroundColor="Blue">
+        <Label Text="Hoge" FontSize="Medium" />
+        <Button Text="OK" Clicked="Button_Clicked" />
+    </StackLayout>
+
+</extra:DialogView>

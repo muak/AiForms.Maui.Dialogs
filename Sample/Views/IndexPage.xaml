@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Sample.Views.IndexPage">
+    
+    <StackLayout>
+        <Button Text="AutoTest" Command="{Binding GoToTest}"  CommandParameter="AutoTest" />
+        <Button Text="ManualTest" Command="{Binding GoToTest}"  CommandParameter="ManualTest" />
+        <Button Text="MainPage" Command="{Binding GoToTest}"  CommandParameter="MainPage" />
+        <Button Text="SurveyPage" Command="{Binding GoToTest}" CommandParameter="SurveyPage" />
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<extra:ToastView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:extra="clr-namespace:AiForms.Dialogs;assembly=AiForms.Maui.Dialogs"
+             x:Class="Sample.Views.MyToastView"
+             HorizontalLayoutAlignment="{Binding HAlign}" VerticalLayoutAlignment="{Binding VAlign}"
+             OffsetX="{Binding OffsetX}" OffsetY="{Binding OffsetY}" 
+             >
+    
+    <StackLayout x:Name="container" Spacing="0" Padding="10" WidthRequest="124" HeightRequest="124">
+        <Image x:Name="image" WidthRequest="70" HeightRequest="70" Margin="0,0,0,10" />
+        <Label Text="Hello" HorizontalTextAlignment="Center" x:Name="label"
+               TextColor="#444444" FontSize="Medium"
+               VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+    </StackLayout>
+</extra:ToastView>

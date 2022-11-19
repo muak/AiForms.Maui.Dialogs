@@ -1,0 +1,119 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0-android;net6.0-ios</TargetFrameworks>		
+		<OutputType>Exe</OutputType>
+		<RootNamespace>Sample</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>Sample</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.sample</ApplicationId>
+		<ApplicationIdGuid>38e32df2-c8a7-4d9d-83fb-60ebae4fce11</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
+	  <EnableCodeSigning>False</EnableCodeSigning>
+	  <CodesignKey>iPhone Developer</CodesignKey>
+	  <MtouchDebug>true</MtouchDebug>
+	  <!--<CodesignProvision>自動</CodesignProvision>-->
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-ios|AnyCPU'">
+	  <EnableCodeSigning>false</EnableCodeSigning>
+	</PropertyGroup>
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="AiForms.Maui.SettingsView" />
+	  <None Remove="Prism.DryIoc.Maui" />
+	  <None Remove="ReactiveProperty" />
+	  <None Remove="Views\" />
+	  <None Remove="ViewModels\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="AiForms.Maui.SettingsView" Version="0.1.10-pre" />
+	  <PackageReference Include="Prism.DryIoc.Maui" Version="8.1.273-pre" />
+	  <PackageReference Include="ReactiveProperty" Version="8.1.2" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Views\" />
+	  <Folder Include="ViewModels\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <MauiXaml Condition=" '$(EnableDefaultXamlItems)' == 'true' " Update="Views\MainPage.xaml">
+	    <SubType>Designer</SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AutoTest.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\IndexPage.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ManualDialogView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ManualLoadingView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ManualTest.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ManualToastView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\MyDialogView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\MyIndicatorView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\MyToastView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ResultPage.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SurveyPage.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Dialogs\ToastTestView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Dialogs\LoadingTestView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Dialogs\DialogTestView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Dialogs\TestDialog.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\AiForms.Maui.Dialogs\AiForms.Maui.Dialogs.csproj" />
+	</ItemGroup>
+</Project>

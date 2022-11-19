@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<extra:DialogView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:extra="clr-namespace:AiForms.Dialogs;assembly=AiForms.Maui.Dialogs"
+    xmlns:sv="clr-namespace:AiForms.Settings;assembly=SettingsView"
+    x:Class="Sample.Views.MyDialogView"
+    CornerRadius="10" OffsetX="{Binding OffsetX}" OffsetY="{Binding OffsetY}" UseCurrentPageLocation="{Binding IsPageLocation}"
+    VerticalLayoutAlignment="{Binding VAlign}" HorizontalLayoutAlignment="{Binding HAlign}" >
+    <!-- HeightRequest="{Binding VisibleContentHeight,Source={x:Reference Settings}}" -->
+
+    <ContentView BackgroundColor="#CC9900" x:Name="container" Padding="12">
+        <StackLayout WidthRequest="200" BackgroundColor="White" >
+            <Label Text="{Binding Title}" TextColor="#FFBF00" HorizontalTextAlignment="Center" Margin="6" x:Name="title" />
+            <Label Text="{Binding Description}" LineBreakMode="WordWrap" x:Name="desc"
+                       TextColor="#666666" Margin="6" VerticalTextAlignment="Center"   />
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Cancel" Clicked="Handle_Cancel_Clicked" TextColor="#FFBF00"
+                        Padding="0" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand"/>
+                <Button Text="OK" Clicked="Handle_OK_Clicked" TextColor="#FFBF00"
+                        Padding="0" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+         </StackLayout>
+    </ContentView>
+    <!--<sv:SettingsView x:Name="Settings" WidthRequest="200"  HeaderHeight="30" RowHeight="40" HasUnevenRows="false"
+         BackgroundColor="#EFEFEF" CellBackgroundColor="White">
+        <sv:Section Title="1行に表示する教材の数" sv:RadioCell.SelectedValue="1">
+            <sv:RadioCell Title="A" Value="1" />
+            <sv:RadioCell Title="B" Value="2" />
+            <sv:RadioCell Title="B" Value="3" />
+        </sv:Section>
+    </sv:SettingsView>-->
+</extra:DialogView>
