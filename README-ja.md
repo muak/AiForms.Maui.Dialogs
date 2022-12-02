@@ -1,7 +1,7 @@
 # AiForms.Dialogs for .NET MAUI
 AiForms.Dialogs は .NET MAUI で カスタムダイアログを XAML を使って簡単に作成して自由な位置に表示できるライブラリです。Android と iOS に対応しています。
 
-![Build status](https://kamusoft.visualstudio.com/NugetCI/_apis/build/status/AiForms.Dialogs)
+[![Build status](https://dev.azure.com/kamusoft/NugetCI/_apis/build/status/AiForms.Maui.Dialogs)](https://dev.azure.com/kamusoft/NugetCI/_build/latest?definitionId=34)
 
 ## 機能
 
@@ -39,7 +39,7 @@ alt="" width="480" height="360" border="0" /></a>
 
 ## Nuget Installation
 
-[https://www.nuget.org/packages/AiForms.Dialogs/](https://www.nuget.org/packages/AiForms.Dialogs/)
+[https://www.nuget.org/packages/AiForms.Maui.Dialogs/](https://www.nuget.org/packages/AiForms.Maui.Dialogs/)
 
 ```bash
 Install-Package AiForms.Maui.Dialogs -pre
