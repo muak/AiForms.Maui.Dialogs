@@ -111,7 +111,7 @@ public class ReusableLoading: LoadingBase,IReusableLoading
     {
         OnceInitializeAction = null;
 
-        OverlayView.BackgroundColor = _loadingView.OverlayColor.ToPlatform();
+        OverlayView.BackgroundColor = _loadingView.OverlayColor?.ToPlatform();
         OverlayView.Alpha = 0f;
         OverlayView.TranslatesAutoresizingMaskIntoConstraints = false;
 

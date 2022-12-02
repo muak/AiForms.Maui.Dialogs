@@ -17,6 +17,7 @@ using AView = Android.Views.View;
 using MauiSize = Microsoft.Maui.Graphics.Size;
 using Microsoft.Maui.Controls.Platform;
 using Application = Microsoft.Maui.Controls.Application;
+using Android.OS;
 
 namespace AiForms.Dialogs.Droid;
 
@@ -27,12 +28,10 @@ public static class DialogHelpers
     internal static AndroidX.Fragment.App.FragmentManager FragmentManager => (Context as Activity)?.GetFragmentManager();
 
     static int? _statusbarHeight;
-    internal static int StatusBarHeight => _statusbarHeight ??=
-        Context.Resources.GetDimensionPixelSize(Context.Resources.GetIdentifier("status_bar_height", "dimen", "android"));
+    internal static int StatusBarHeight => _statusbarHeight ?? GetBarSize().statusBar;
 
     static int? _navigationBarHeight;
-    internal static int NavigationBarHeight => _navigationBarHeight ??=
-        Context.Resources.GetDimensionPixelSize(Context.Resources.GetIdentifier("navigation_bar_height", "dimen", "android"));
+    internal static int NavigationBarHeight => _navigationBarHeight ?? GetBarSize().navigationBar;
 
     static Size? _contentSize;
     internal static Size ContentSize
@@ -54,6 +53,27 @@ public static class DialogHelpers
 
             return _contentSize.Value;
         }
+    }
+
+    internal static (int statusBar, int navigationBar) GetBarSize()
+    {
+        if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
+        {
+            var metrics = (Context as Activity).WindowManager.CurrentWindowMetrics;
+            var inset = metrics.WindowInsets.GetInsetsIgnoringVisibility(WindowInsets.Type.SystemBars());
+
+            _statusbarHeight = inset.Top;
+            _navigationBarHeight = inset.Bottom;
+        }
+        else
+        {
+            _statusbarHeight =
+        Context.Resources.GetDimensionPixelSize(Context.Resources.GetIdentifier("status_bar_height", "dimen", "android"));
+            _navigationBarHeight =
+        Context.Resources.GetDimensionPixelSize(Context.Resources.GetIdentifier("navigation_bar_height", "dimen", "android"));
+        }
+
+        return (_statusbarHeight.Value, _navigationBarHeight.Value);
     }
 
     // Height of status bar included in content area
@@ -278,10 +298,17 @@ public static class DialogHelpers
     {
         var activePage = Application.Current.MainPage.GetActivePage();
         var activeHandler = activePage.ToHandler(activePage.FindMauiContext());
-
-        var rect = new Rect();
+       
+        var rect = new Rect();       
         activeHandler.PlatformView.GetGlobalVisibleRect(rect);
 
-        return (rect.Top, DisplayHeight - rect.Bottom);
+        var top = rect.Top;
+        // If the device is that StatusBarSize is not included in ContentArea
+        if(StatusBarHeightInContent == 0)
+        {            
+            top -= StatusBarHeight;  
+        }
+
+        return (top, DisplayHeight - rect.Bottom);
     }
 }

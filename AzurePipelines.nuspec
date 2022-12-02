@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>AiForms.Maui.Dialogs</id>
+        <version>0.3.2-pre</version>
+        <title>AiForms.Dialogs for .NET MAUI</title>
+        <authors>kamu</authors>
+        <owners>kamu</owners>
+        <projectUrl>https://github.com/muak/AiForms.Maui.Dialogs</projectUrl>
+        <licenseUrl>https://github.com/muak/AiForms.Maui.Dialogs/blob/master/LICENSE.txt</licenseUrl>
+        <iconUrl>https://raw.githubusercontent.com/muak/AiForms.Dialogs/master/images/icon.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>This is a collection of Custom Dialogs (Loading, Toast, CustomDialog) that can be defined with XAML for .NET MAUI (Android / iOS). This allows you to freely design the dialog content and arrange anywhere without custom renderer and effects.
+        </description>
+        <summary></summary>
+        <releaseNotes>
+Preview version.
+        </releaseNotes>
+        <tags>MAUI dialog toast loading progress popup xaml netstandard ios android</tags>
+        <language>en-US</language>
+    </metadata>
+    <files>
+        <!-- Android -->
+        <file src="artifacts/net6.0-android/AiForms.Maui.Dialogs.dll" target="lib/net6.0-android21.0" />
+        <file src="artifacts/net6.0-android/AiForms.Maui.Dialogs.xml" target="lib/net6.0-android21.0" />
+        <file src="artifacts/net6.0-android/AiForms.Maui.Dialogs.pdb" target="lib/net6.0-android21.0" />
+		<file src="artifacts/net6.0-android/AiForms.Maui.Dialogs.aar" target="lib/net6.0-android21.0" />
+        <!-- iOS -->
+        <file src="artifacts/net6.0-ios/AiForms.Maui.Dialogs.dll" target="lib/net6.0-ios14.2" />
+        <file src="artifacts/net6.0-ios/AiForms.Maui.Dialogs.xml" target="lib/net6.0-ios14.2" />
+        <file src="artifacts/net6.0-ios/AiForms.Maui.Dialogs.pdb" target="lib/net6.0-ios14.2" />        
+    </files>
+</package>

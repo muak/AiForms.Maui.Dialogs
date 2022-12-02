@@ -28,7 +28,7 @@ public class LoadingView:ExtraView
 
     public Color OverlayColor
     {
-        get { return (Color)GetValue(OverlayColorProperty); }
+        get { return (Color)GetValue(OverlayColorProperty) ?? KnownColor.Transparent; }
         set { SetValue(OverlayColorProperty, value); }
     }
 

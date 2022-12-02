@@ -27,7 +27,7 @@ public class ReusableDialog: IReusableDialog
 
         _overlayView = new UIView()
         {
-            BackgroundColor = _dlgView.OverlayColor.ToPlatform(),
+            BackgroundColor = _dlgView.OverlayColor?.ToPlatform(),
             Opaque = false,
             Alpha = 0f
         };
@@ -82,6 +82,7 @@ public class ReusableDialog: IReusableDialog
         _dlgView.Parent = null;
         _dlgView.DisposeModalAndChildHandlers();
         _dlgView.BindingContext = null;
+        _dlgView.Handler = null;
         _dlgView = null;
 
         var tapGesture = _overlayView.GestureRecognizers.FirstOrDefault();
@@ -99,6 +100,8 @@ public class ReusableDialog: IReusableDialog
         _dialogController.Dispose();
         _dialogController = null;
 
+        _handler.PlatformView.RemoveFromSuperview();
+        _handler.DisconnectHandler();
         _handler = null;
     }
 

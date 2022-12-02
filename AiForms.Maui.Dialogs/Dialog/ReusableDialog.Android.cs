@@ -71,7 +71,7 @@ public class ReusableDialog : Java.Lang.Object, IReusableDialog
             _contentView.SetPadding(0, DialogHelpers.StatusBarHeightInContent - fixPaddingTop, 0, 0);
         }
 
-        _contentView.SetBackgroundColor(_dlgView.OverlayColor.ToAndroid());
+        _contentView.SetBackgroundColor(_dlgView.OverlayColor.ToPlatform());
         _contentView.SetClipChildren(false);
         _contentView.SetClipToPadding(false);
 

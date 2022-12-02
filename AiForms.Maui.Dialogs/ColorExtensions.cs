@@ -12,6 +12,6 @@ public static class ColorExtensions
     /// <param name="color">Color.</param>
     public static bool IsTransparentOrDefault(this Color color)
     {
-        return color.IsDefault() || color == Colors.Transparent;
+        return color.IsDefault() || color.ToUint() == Colors.Transparent.ToUint();
     }
 }

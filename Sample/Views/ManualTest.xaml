@@ -12,7 +12,7 @@
         <ToolbarItem Text="Save" Command="{Binding SaveCommand}" />
     </ContentPage.ToolbarItems>
     
-    <sv:SettingsView>
+    <sv:SettingsView CellAccentColor="Blue">
         <sv:Section>
             <sv:ButtonCell Title="Run" Command="{Binding RunCommand}" />
         </sv:Section>
