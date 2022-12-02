@@ -4,7 +4,7 @@ This is a collection of Custom Dialogs that can be defined with XAML for .NET MA
 
 [Japanese](./README-ja.md)
 
-![Build status](https://kamusoft.visualstudio.com/NugetCI/_apis/build/status/AiForms.Dialogs)
+[![Build status](https://dev.azure.com/kamusoft/NugetCI/_apis/build/status/AiForms.Maui.Dialogs)](https://dev.azure.com/kamusoft/NugetCI/_build/latest?definitionId=34)
 
 ## Available Features
 
@@ -43,7 +43,7 @@ alt="" width="480" height="360" border="0" /></a>
 
 ## Nuget Installation
 
-[https://www.nuget.org/packages/AiForms.Dialogs/](https://www.nuget.org/packages/AiForms.Dialogs/)
+[https://www.nuget.org/packages/AiForms.Maui.Dialogs/](https://www.nuget.org/packages/AiForms.Maui.Dialogs/)
 
 ```bash
 Install-Package AiForms.Maui.Dialogs -pre
