@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>		
+		<TargetFrameworks>net6.0;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>		
 		<UseMaui>true</UseMaui>
 		<SingleProject>false</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -28,24 +28,35 @@
 	  <WarningLevel>4</WarningLevel>
 	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-android')) != true">
+
+	<ItemGroup>
+		<Compile Remove="**\**\*.Net.cs" />
+		<None Include="**\**\*.Net.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 		<Compile Remove="**\**\*.Android.cs" />
 		<None Include="**\**\*.Android.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 		<Compile Remove="**\Android\**\*.cs" />
-		<None Include="**\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />  
-	</ItemGroup>
-
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-ios')) != true AND $(TargetFramework.StartsWith('net6.0-maccatalyst')) != true">
+		<None Include="**\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 		<Compile Remove="**\**\*.iOS.cs" />
 		<None Include="**\**\*.iOS.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 		<Compile Remove="**\iOS\**\*.cs" />
 		<None Include="**\iOS\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />  
+    </ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<Compile Include="**\**\*.Net.cs" />		
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-android')) == true">
+		<Compile Include="**\**\*.Android.cs" />
+		<Compile Include="**\Android\**\*.cs" />
 		<AndroidResource Include="**\Resources\**\*.axml" Generator="MSBuild:UpdateGeneratedFiles" />
 		<AndroidResource Include="**\Resources\**\*.xml" Generator="MSBuild:UpdateGeneratedFiles" />
 		<AndroidResource Include="**\Resources\**\*.png" Generator="MSBuild:UpdateGeneratedFiles" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-ios')) == true OR $(TargetFramework.StartsWith('net6.0-maccatalyst')) == true">
+		<Compile Include="**\**\*.iOS.cs" />		
+		<Compile Include="**\iOS\**\*.cs" />		
 	</ItemGroup>
 
 	<ItemGroup>

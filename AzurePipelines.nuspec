@@ -20,6 +20,10 @@ Add platform MacCatalyst
         <language>en-US</language>
     </metadata>
     <files>
+        <!-- NET6.0 -->
+        <file src="artifacts/net6.0/AiForms.Maui.Dialogs.dll" target="lib/net6.0" />
+        <file src="artifacts/net6.0/AiForms.Maui.Dialogs.xml" target="lib/net6.0" />
+        <file src="artifacts/net6.0/AiForms.Maui.Dialogs.pdb" target="lib/net6.0" />
         <!-- Android -->
         <file src="artifacts/net6.0-android/AiForms.Maui.Dialogs.dll" target="lib/net6.0-android21.0" />
         <file src="artifacts/net6.0-android/AiForms.Maui.Dialogs.xml" target="lib/net6.0-android21.0" />
