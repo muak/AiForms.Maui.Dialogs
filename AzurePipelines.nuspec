@@ -14,7 +14,7 @@
         </description>
         <summary></summary>
         <releaseNotes>
-Preview version.
+Add platform MacCatalyst
         </releaseNotes>
         <tags>MAUI dialog toast loading progress popup xaml netstandard ios android</tags>
         <language>en-US</language>
@@ -28,6 +28,10 @@ Preview version.
         <!-- iOS -->
         <file src="artifacts/net6.0-ios/AiForms.Maui.Dialogs.dll" target="lib/net6.0-ios14.2" />
         <file src="artifacts/net6.0-ios/AiForms.Maui.Dialogs.xml" target="lib/net6.0-ios14.2" />
-        <file src="artifacts/net6.0-ios/AiForms.Maui.Dialogs.pdb" target="lib/net6.0-ios14.2" />        
+        <file src="artifacts/net6.0-ios/AiForms.Maui.Dialogs.pdb" target="lib/net6.0-ios14.2" />
+        <!-- MacCatalyst -->
+        <file src="artifacts/net6.0-maccatalyst/AiForms.Maui.Dialogs.dll" target="lib/net6.0-maccatalyst14.2" />
+        <file src="artifacts/net6.0-maccatalyst/AiForms.Maui.Dialogs.xml" target="lib/net6.0-maccatalyst14.2" />
+        <file src="artifacts/net6.0-maccatalyst/AiForms.Maui.Dialogs.pdb" target="lib/net6.0-maccatalyst14.2" />
     </files>
 </package>

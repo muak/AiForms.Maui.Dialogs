@@ -122,7 +122,7 @@ public class DefaultLoading:LoadingBase
         ContentView.SetBackgroundColor(_config.OverlayColor.ToPlatform());
         ContentView.Alpha = (float)_config.Opacity;
 
-        var innerView = (DialogHelpers.Context as Activity).LayoutInflater.Inflate(Resource.Layout.LoadingDialogLayout, null);
+        var innerView = (DialogHelpers.Context as Activity).LayoutInflater.Inflate(Resource.Layout.loadingdialoglayout, null);
 
         var progress = innerView.FindViewById<Android.Widget.ProgressBar>(Resource.Id.progress);
         _messageLabel = innerView.FindViewById<TextView>(Resource.Id.loading_message);
