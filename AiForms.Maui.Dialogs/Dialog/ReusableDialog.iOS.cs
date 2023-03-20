@@ -100,7 +100,7 @@ public class ReusableDialog: IReusableDialog
         _dialogController.Dispose();
         _dialogController = null;
 
-        _handler.PlatformView.RemoveFromSuperview();
+        _handler.PlatformView?.RemoveFromSuperview();
         _handler.DisconnectHandler();
         _handler = null;
     }
