@@ -25,7 +25,7 @@ public static class MauiProgram
                     registry.RegisterForNavigation<SurveyPage>();
                 });
 
-                prism.OnAppStart(async navigationService =>
+                prism.OnAppStart(async (container, navigationService) =>
                 {
                     await navigationService.NavigateAsync("/NavigationPage/IndexPage");
                 });

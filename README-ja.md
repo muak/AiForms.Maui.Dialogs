@@ -493,6 +493,8 @@ ContentViewを継承しているので任意の VisualElement を配置できま
 * AutoRotateForIOS
     * iOSで画面回転を有効にするかどうか。(default: true)
     * 向きを固定にしている場合はこの値は無効です。
+* DialogMargin
+    * 画面とダイアログとのマージン。
 
 ### 共通 Virtual Methods
 

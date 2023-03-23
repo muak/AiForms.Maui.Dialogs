@@ -495,6 +495,8 @@ Also, the animations the time a dialog appears and disappears, and the cleaning 
     * The value of a dialog corner radius.
 * AutoRotateForIOS
     * Whether the screen Auto rotate is enabled for iOS. (default: true)
+* DialogMargin
+    * The margin between window and dialog.
 
 ### Common Virtual Methods
 
