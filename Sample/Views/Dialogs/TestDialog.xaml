@@ -4,18 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:extra="clr-namespace:AiForms.Dialogs;assembly=AiForms.Maui.Dialogs"
     x:Class="Sample.Views.TestDialog"
-    HorizontalLayoutAlignment="Center"
+    HorizontalLayoutAlignment="Fill"
     VerticalLayoutAlignment="Center"
     BackgroundColor="AliceBlue"
     UseCurrentPageLocation="False"
-    Margin="16"
+    DialogMargin="16"
     Padding="10"
     CornerRadius="16"
     OverlayColor="#80000000"
     >
-    <StackLayout BackgroundColor="Blue">
+    <StackLayout BackgroundColor="Green">
         <Label Text="Hoge" FontSize="Medium" />
-        <Button Text="OK" Clicked="Button_Clicked" />
+        <Button Text="OK" Clicked="Button_Clicked" BackgroundColor="Yellow" />
     </StackLayout>
 
 </extra:DialogView>

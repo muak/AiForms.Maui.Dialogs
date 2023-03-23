@@ -58,10 +58,10 @@ public static class DialogHelpers
         double fWidth = dWidth;
         bool isFixWidth = true;
         bool isFixHeight = true;
-        var marginTop = view.Margin.Top;
-        var marginLeft = view.Margin.Left;
-        var marginBottom = view.Margin.Bottom;
-        var marginRight = view.Margin.Right;
+        var marginTop = view.DialogMargin.Top;
+        var marginLeft = view.DialogMargin.Left;
+        var marginBottom = view.DialogMargin.Bottom;
+        var marginRight = view.DialogMargin.Right;
 
         if (view.ProportionalWidth >= 0)
         {

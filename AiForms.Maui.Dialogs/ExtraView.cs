@@ -151,6 +151,19 @@ public class ExtraView:ContentView
         set { SetValue(AutoRotateForIOSProperty, value); }
     }
 
+    public static BindableProperty DialogMarginProperty = BindableProperty.Create(
+            nameof(DialogMargin),
+            typeof(Thickness),
+            typeof(ExtraView),
+            default(Thickness),
+            defaultBindingMode: BindingMode.OneWay
+        );
+
+    public Thickness DialogMargin{
+        get { return (Thickness)GetValue(DialogMarginProperty); }
+        set { SetValue(DialogMarginProperty, value); }
+    }
+
     public virtual void RunPresentationAnimation() {}
     public virtual void RunDismissalAnimation() {}
     public virtual void Destroy() {}

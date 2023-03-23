@@ -14,7 +14,7 @@
         </description>
         <summary></summary>
         <releaseNotes>
-Add platform MacCatalyst
+Add DialogMargin Property
         </releaseNotes>
         <tags>MAUI dialog toast loading progress popup xaml netstandard ios android</tags>
         <language>en-US</language>
