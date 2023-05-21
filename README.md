@@ -98,6 +98,9 @@ public partial class MyDialogView : DialogView
     {
         // send complete notification to the dialog.
         DialogNotifier.Complete();
+
+        // Use this if you want to specify an arbitrary object for the result.
+        DialogNotifier.Complete(result);
     }
 
     void Handle_Cancel_Clicked(object sender, System.EventArgs e)
@@ -152,12 +155,59 @@ public async Task SomeMethod()
     // ShowAsync can be used any number of times until disposing it.
     reusableDialog.Dispose();
 }
+
+public async Task SomeResultMethod()
+{
+    var ret = await Dialog.Instance.ShowResultAsync<MyDialogView,MyResult>(new{Title="Hello"});
+    // Use ShowResultAsync to return any type for the result.
+    // The object set in Complete<T>(result) is returned.
+    // Returns null in case of Cancel.
+}
 ```
+
+### ViewModel Base Dialog
+
+If you have a clear separation between View and ViewModel and do not want to reference the View from the ViewModel, you can launch dialogs on a ViewModel basis.
+To use this feature, you will need to do some initial configuration with ``Configurations.SetIocConfig``.
+
+#### Prism example
+
+```csharp
+prism.RegisterTypes(registry =>
+{
+    // Register View and ViewModel with RegisterDialog.
+    registry.RegisterDialog<VmDialog, VmDialogViewModel>();
+});
+
+prism.OnInitialized(container =>
+{
+    var registry = container.Resolve<IDialogViewRegistry>();
+    // In SetIocConfig, specify a function that returns the View type
+    // from the ViewModel type and a Resolver function that returns a View instance.
+    // If these functions are registered correctly, any framework should work,
+    // even if it is not Prism.
+    AiForms.Dialogs.Configurations.SetIocConfig(
+        type => registry.Registrations.Where(x => x.ViewModel == type).LastOrDefault()?.View,
+        container.Resolve
+    );
+});
+
+```
+
+#### How to call
+
+```csharp
+// Passing a VmDialogViewModel instance generates and displays a VmDialog
+// VmDialogViewModel is automatically set in BindingContext.
+await Dialog.Instance.ShowAsync(new VmDialogViewModel { Title = "hoge" });
+```
+
 
 ## Toast
 
 This is the dialog that disappears after some second, which is similar to Android Native Toast Control.
 This can be defined with XAML or c# code and allows you to freely design the content and arrange anywhere.
+This feature will be discontinued.
 
 <img src="./images/toast.png" width="600" />
 

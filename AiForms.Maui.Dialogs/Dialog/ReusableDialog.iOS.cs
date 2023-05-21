@@ -113,17 +113,56 @@ public class ReusableDialog: IReusableDialog
 
         var tcs = new TaskCompletionSource<bool>();
 
-        async void cancel(object sender, EventArgs e)
+        async void cancel(object sender, DialogNotifierArgs e)
         {
             _dlgView.RunDismissalAnimation();
             await _viewController.DismissViewControllerAsync(true);
             tcs.SetResult(false);
         }
-        async void complete(object sender, EventArgs e)
+        async void complete(object sender, DialogNotifierArgs e)
         {
             _dlgView.RunDismissalAnimation();
             await _viewController.DismissViewControllerAsync(true);
             tcs.SetResult(true);
+        };
+
+        _dlgView.DialogNotifierInternal.Canceled += cancel;
+        _dlgView.DialogNotifierInternal.Completed += complete;
+
+        _dlgView.RunPresentationAnimation();
+        await _viewController.PresentViewControllerAsync(_contentViewController, true);
+
+        try
+        {
+            return await tcs.Task;
+        }
+        finally
+        {
+            _dlgView.DialogNotifierInternal.Canceled -= cancel;
+            _dlgView.DialogNotifierInternal.Completed -= complete;
+            _dlgView.TearDown();
+        }
+    }
+
+    public async Task<TResult> ShowResultAsync<TResult>()
+    {
+        _dlgView.SetUp();
+
+        OnceInitializeAction?.Invoke();
+
+        var tcs = new TaskCompletionSource<TResult>();
+
+        async void cancel(object sender, DialogNotifierArgs e)
+        {
+            _dlgView.RunDismissalAnimation();
+            await _viewController.DismissViewControllerAsync(true);            
+            tcs.SetResult(default);
+        }
+        async void complete(object sender, DialogNotifierArgs e)
+        {
+            _dlgView.RunDismissalAnimation();
+            await _viewController.DismissViewControllerAsync(true);
+            tcs.SetResult((TResult)e.Result);
         };
 
         _dlgView.DialogNotifierInternal.Canceled += cancel;

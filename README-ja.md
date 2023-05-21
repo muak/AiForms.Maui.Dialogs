@@ -93,6 +93,9 @@ public partial class MyDialogView : DialogView
     {
         // ダイアログに完了を通知します。
         DialogNotifier.Complete();
+
+        // 結果に任意のオブジェクトを指定する場合はこちらを使う。
+        DialogNotifier.Complete(result);
     }
 
     void Handle_Cancel_Clicked(object sender, System.EventArgs e)
@@ -147,12 +150,61 @@ public async Task SomeMethod()
     // ShowAsync はDisposeを実行するまで何回でも使用できます。
     reusableDialog.Dispose();
 }
+
+public async Task SomeResultMethod()
+{
+    var ret = await Dialog.Instance.ShowResultAsync<MyDialogView,MyResult>(new{Title="Hello"});
+    // 結果に任意の型を返すようにするにはShowResultAsyncを使います。
+    // Complete<T>(result)で設定したオブジェクトが返ります。
+    // Cancelの場合はnullが返ります。
+}
+
 ```
+
+### ViewModelベースのDialog
+
+ViewとViewModel明確に分離していて、ViewModelからViewを参照したくないという場合は、ViewModelベースでダイアログを起動できます。
+この機能を利用する場合は``Configurations.SetIocConfig``で初期設定をする必要があります。
+
+#### Prismの初期設定例
+
+```csharp
+prism.RegisterTypes(registry =>
+{
+    // RegisterDialogでViewとViewModelを登録します。
+    registry.RegisterDialog<VmDialog, VmDialogViewModel>();
+});
+
+prism.OnInitialized(container =>
+{
+    var registry = container.Resolve<IDialogViewRegistry>();
+    // SetIocConfigで
+    // ViewModelの型からViewの型を返す関数と
+    // Viewのインスタンスを返すResolverの関数を
+    // 指定します。
+    // Prismじゃなくてもこの関数を正しく登録すればどのフレームワークでも動作するはずです。
+    AiForms.Dialogs.Configurations.SetIocConfig(
+        type => registry.Registrations.Where(x => x.ViewModel == type).LastOrDefault()?.View,
+        container.Resolve
+    );
+});
+
+```
+
+#### 呼び出し方
+
+```csharp
+// VmDialogViewModelのインスタンスを渡すとVmDialogが生成され表示される
+// BindingContextに自動でVmDialogViewModelが設定されます。
+await Dialog.Instance.ShowAsync(new VmDialogViewModel { Title = "hoge" });
+```
+
 
 ## Toast
 
 これは、Androidのネイティブの トースト によく似た（というかAndroid実装はToastそのもの）、数秒で消えるダイアログを表示する機能です。
 この機能を使えば、Toast の内容を XAML や c# コードで自由にデザインし、好きな場所に配置することができます。
+この機能は廃止予定です。
 
 <img src="./images/toast.png" width="600" />
 

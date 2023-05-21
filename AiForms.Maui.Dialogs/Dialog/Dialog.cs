@@ -2,7 +2,7 @@
 
 public class Dialog: IDialog
 {
-    static readonly Lazy<IDialog> Implementation = new Lazy<IDialog>(() => new Dialog(), System.Threading.LazyThreadSafetyMode.PublicationOnly);
+    static readonly Lazy<IDialog> Implementation = new(() => new Dialog(), System.Threading.LazyThreadSafetyMode.PublicationOnly);
     public static IDialog Instance => Implementation.Value;
 
     public Dialog()
@@ -34,6 +34,30 @@ public class Dialog: IDialog
     {
         using var dlg = Create(view, viewModel);
         return await dlg.ShowAsync();        
+    }
+
+    public async Task<bool> ShowAsync(object viewModel)
+    {
+        var viewType = Configurations.ViewTypeGetter(viewModel.GetType()) ?? throw new KeyNotFoundException("ViewType not found");
+        var view = Configurations.Resolve(viewType) as DialogView ?? throw new KeyNotFoundException("View not resolved");
+        using var dlg = Create(view, viewModel);
+
+        return await dlg.ShowAsync();
+    }
+
+    public async Task<TResult> ShowResultAsync<TView, TResult>(object viewModel = null) where TView : DialogView
+    {
+        using var dlg = Create<TView>(viewModel);
+        return await dlg.ShowResultAsync<TResult>();
+    }
+
+    public async Task<TResult> ShowResultAsync<TResult>(object viewModel)
+    {
+        var viewType = Configurations.ViewTypeGetter(viewModel.GetType()) ?? throw new KeyNotFoundException("ViewType not found");
+        var view = Configurations.Resolve(viewType) as DialogView ?? throw new KeyNotFoundException("View not resolved");
+        using var dlg = Create(view, viewModel);
+
+        return await dlg.ShowResultAsync<TResult>();
     }
 }
 

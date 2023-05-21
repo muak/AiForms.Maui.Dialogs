@@ -132,13 +132,13 @@ public class ReusableDialog : Java.Lang.Object, IReusableDialog
 
         var tcs = new TaskCompletionSource<bool>();
 
-        async void cancel(object sender, EventArgs e)
+        async void cancel(object sender, DialogNotifierArgs e)
         {
             _dlgView.RunDismissalAnimation();
             await Dismiss();
             tcs.SetResult(false);
         }
-        async void complete(object sender, EventArgs e)
+        async void complete(object sender, DialogNotifierArgs e)
         {
             _dlgView.RunDismissalAnimation();
             await Dismiss();
@@ -168,6 +168,57 @@ public class ReusableDialog : Java.Lang.Object, IReusableDialog
             payload.Dispose();
             bundle.Dispose();
 
+        }
+    }
+
+    public async Task<TResult> ShowResultAsync<TResult>()
+    {
+        var dialog = FragmentManager.FindFragmentByTag(_guid.ToString()) as ExtraPlatformDialog;
+        if (dialog != null)
+        {
+            return default;
+        }
+
+        _dlgView.SetUp();
+
+        OnceInitializeAction?.Invoke();
+
+        var tcs = new TaskCompletionSource<TResult>();
+
+        async void cancel(object sender, DialogNotifierArgs e)
+        {
+            _dlgView.RunDismissalAnimation();
+            await Dismiss();
+            tcs.SetResult(default);
+        }
+        async void complete(object sender, DialogNotifierArgs e)
+        {
+            _dlgView.RunDismissalAnimation();
+            await Dismiss();
+            tcs.SetResult((TResult)e.Result);
+        }
+
+        _dlgView.DialogNotifierInternal.Canceled += cancel;
+        _dlgView.DialogNotifierInternal.Completed += complete;
+
+        var payload = new ExtraDialogPayload(_dlgView, _contentView);
+        var bundle = new Bundle();
+        bundle.PutSerializable("extraDialogPayload", payload);
+        _platformDialog = new ExtraPlatformDialog();
+        _platformDialog.Arguments = bundle;
+        _platformDialog.Show(FragmentManager, _guid.ToString());
+
+        try
+        {
+            return await tcs.Task;
+        }
+        finally
+        {
+            _dlgView.DialogNotifierInternal.Canceled -= cancel;
+            _dlgView.DialogNotifierInternal.Completed -= complete;
+            _dlgView.TearDown();
+            payload.Dispose();
+            bundle.Dispose();
         }
     }
 
@@ -250,4 +301,6 @@ public class ReusableDialog : Java.Lang.Object, IReusableDialog
 
         await Task.Delay(250); // wait for a bit time until the dialog is completely released.
     }
+
+    
 }

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sample.Views.VmTest"
+             xmlns:vm="clr-namespace:Sample.ViewModels"
+             Title="VmTest"
+             x:DataType="vm:VmTestViewModel">
+    <VerticalStackLayout Spacing="4">
+        <Button Text="VmBoot" Command="{Binding ShowVmCommand}" />
+        <Button Text="VmBoot with Result" Command="{Binding ShowVmResultCommand}" />
+        <Button Text="ViewBoot Result" Command="{Binding ShowViewResultCommand}" />
+    </VerticalStackLayout>
+</ContentPage>
