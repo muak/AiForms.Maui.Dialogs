@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<extra:DialogView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:extra="clr-namespace:AiForms.Dialogs;assembly=AiForms.Maui.Dialogs"
+             x:Class="Sample.Views.Dialogs.VmDialog"
+             IsCanceledOnTouchOutside="True">
+    <VerticalStackLayout>
+        <Label 
+            Text="{Binding Title}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Button Text="OK" Clicked="Button_Clicked" />
+    </VerticalStackLayout>
+</extra:DialogView>
+

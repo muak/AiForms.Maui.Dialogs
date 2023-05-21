@@ -17,6 +17,11 @@ namespace AiForms.Dialogs
         {
             throw new NotImplementedException();
         }
+
+        public Task<TResult> ShowResultAsync<TResult>()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

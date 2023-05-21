@@ -1,7 +1,11 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using AiForms.Settings;
+using Prism.Ioc;
+using Sample.ViewModels;
+using Sample.ViewModels.Dialogs;
 using Sample.Views;
+using Sample.Views.Dialogs;
 
 namespace Sample;
 
@@ -23,6 +27,17 @@ public static class MauiProgram
                     registry.RegisterForNavigation<ManualTest>();
                     registry.RegisterForNavigation<ResultPage>();
                     registry.RegisterForNavigation<SurveyPage>();
+                    registry.RegisterForNavigation<VmTest, VmTestViewModel>();
+                    registry.RegisterDialog<VmDialog, VmDialogViewModel>();
+                });
+
+                prism.OnInitialized(container =>
+                {
+                    var registry = container.Resolve<IDialogViewRegistry>();
+                    AiForms.Dialogs.Configurations.SetIocConfig(
+                        type => registry.Registrations.Where(x => x.ViewModel == type).LastOrDefault()?.View,
+                        container.Resolve
+                    );
                 });
 
                 prism.OnAppStart(async (container, navigationService) =>

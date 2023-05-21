@@ -51,6 +51,7 @@
 	  <None Remove="ReactiveProperty" />
 	  <None Remove="Views\" />
 	  <None Remove="ViewModels\" />
+	  <None Remove="ViewModels\Dialogs\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="AiForms.Maui.SettingsView" Version="0.1.14-pre" />
@@ -60,6 +61,7 @@
 	<ItemGroup>
 	  <Folder Include="Views\" />
 	  <Folder Include="ViewModels\" />
+	  <Folder Include="ViewModels\Dialogs\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <MauiXaml Condition=" '$(EnableDefaultXamlItems)' == 'true' " Update="Views\MainPage.xaml">
