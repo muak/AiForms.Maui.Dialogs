@@ -11,6 +11,7 @@ namespace Sample.ViewModels
         public ReactiveCommand ShowVmCommand { get; } = new ReactiveCommand();
         public ReactiveCommand ShowVmResultCommand { get; } = new ReactiveCommand();
         public ReactiveCommand ShowViewResultCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand ShowVmTypeCommand { get; } = new ReactiveCommand();
 
         public VmTestViewModel()
         {
@@ -27,6 +28,11 @@ namespace Sample.ViewModels
             ShowViewResultCommand.Subscribe(async _ =>
             {
                 var ret = await Dialog.Instance.ShowResultAsync<VmDialog,VmTestResult>(new VmDialogViewModel { Title = "hoge" });
+            });
+
+            ShowVmTypeCommand.Subscribe(async _ =>
+            {
+                await Dialog.Instance.ShowAsync<VmDialogViewModel>();
             });
         }
     }

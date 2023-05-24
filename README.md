@@ -200,6 +200,11 @@ prism.OnInitialized(container =>
 // Passing a VmDialogViewModel instance generates and displays a VmDialog
 // VmDialogViewModel is automatically set in BindingContext.
 await Dialog.Instance.ShowAsync(new VmDialogViewModel { Title = "hoge" });
+
+// It is also possible to pass type arguments. In this case, no arguments can be passed.
+// Since an instance is created internally using a pre-registered Resolver
+// constructor injection can be handled.
+await Dialog.Instance.ShowAsync<SomeViewModel>();
 ```
 
 

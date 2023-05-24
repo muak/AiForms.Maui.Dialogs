@@ -9,5 +9,6 @@
         <Button Text="VmBoot" Command="{Binding ShowVmCommand}" />
         <Button Text="VmBoot with Result" Command="{Binding ShowVmResultCommand}" />
         <Button Text="ViewBoot Result" Command="{Binding ShowViewResultCommand}" />
+        <Button Text="VmBoot by Type" Command="{Binding ShowVmTypeCommand}" />
     </VerticalStackLayout>
 </ContentPage>
