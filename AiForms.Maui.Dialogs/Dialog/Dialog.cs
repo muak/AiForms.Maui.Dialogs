@@ -27,7 +27,13 @@ public class Dialog: IDialog
     public async Task<bool> ShowAsync<TView>(object viewModel = null) where TView : DialogView
     {
         using var dlg = Create<TView>(viewModel);
-        return await dlg.ShowAsync();        
+        return await dlg.ShowAsync();
+    }
+
+    public async Task<bool> ShowAsync<TViewModel>()
+    {
+        var vm = Configurations.Resolve(typeof(TViewModel));
+        return await ShowAsync(vm);
     }
 
     public async Task<bool> ShowAsync(DialogView view, object viewModel = null)

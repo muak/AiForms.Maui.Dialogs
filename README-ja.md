@@ -197,6 +197,11 @@ prism.OnInitialized(container =>
 // VmDialogViewModelのインスタンスを渡すとVmDialogが生成され表示される
 // BindingContextに自動でVmDialogViewModelが設定されます。
 await Dialog.Instance.ShowAsync(new VmDialogViewModel { Title = "hoge" });
+
+// 型引数で渡すことも可能。この場合引数は渡せない。
+// 内部で事前に登録したResolverを使ってインスタンスを生成するので
+// コンストラクタインジェクションには対応可能。
+await Dialog.Instance.ShowAsync<SomeViewModel>();
 ```
 
 
