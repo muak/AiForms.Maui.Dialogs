@@ -143,13 +143,14 @@ public static class DialogHelpers
         }
 
         double fHeight = dHeight;
+        double maxHeight = dHeight - marginTop - marginBottom;
         if (view.ProportionalHeight >= 0)
         {
             fHeight = dHeight * view.ProportionalHeight;
         }
         else if (view.VerticalLayoutAlignment == LayoutAlignment.Fill)
         {
-            fHeight = dHeight - marginTop - marginBottom;
+            fHeight = maxHeight;
         }
         else if (view.HeightRequest == -1)
         {
@@ -167,9 +168,10 @@ public static class DialogHelpers
             var handler = (IPlatformViewHandler)view.Handler;
             
             var sizeRequest = handler.VirtualView.Measure(fWidth, fHeight);
+            var requestHeight = Math.Min(sizeRequest.Height, maxHeight);
 
-            var reqWidth = isFixWidth ? fWidth : sizeRequest.Width;
-            var reqHeight = isFixHeight ? fHeight : sizeRequest.Height;
+            var reqWidth = isFixWidth ? fWidth : sizeRequest.Width;            
+            var reqHeight = isFixHeight ? fHeight : requestHeight;
 
             return new MauiSize(reqWidth, reqHeight);           
         }

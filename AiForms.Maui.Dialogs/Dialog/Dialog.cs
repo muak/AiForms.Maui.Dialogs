@@ -30,7 +30,7 @@ public class Dialog: IDialog
         return await dlg.ShowAsync();
     }
 
-    public async Task<bool> ShowAsync<TViewModel>()
+    public async Task<bool> ShowFromModelAsync<TViewModel>()
     {
         var vm = Configurations.Resolve(typeof(TViewModel));
         return await ShowAsync(vm);

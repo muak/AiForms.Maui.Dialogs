@@ -32,7 +32,7 @@ namespace Sample.ViewModels
 
             ShowVmTypeCommand.Subscribe(async _ =>
             {
-                await Dialog.Instance.ShowAsync<VmDialogViewModel>();
+                await Dialog.Instance.ShowFromModelAsync<VmDialogViewModel>();
             });
         }
     }

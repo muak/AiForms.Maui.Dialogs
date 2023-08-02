@@ -15,8 +15,7 @@
         <summary></summary>
         <releaseNotes>
 [Dialog]
-- ShowAsync viewmodel boot.
-- Add ShowResultAsync
+- ShowAsync[TViewModel] renamed to ShowFromModel[TViewModel]
         </releaseNotes>
         <tags>MAUI dialog toast loading progress popup xaml netstandard ios android</tags>
         <language>en-US</language>

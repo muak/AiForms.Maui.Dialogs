@@ -13,6 +13,7 @@ using Android.Views.Animations;
 using Android.Widget;
 using AndroidX.Fragment.App;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Layouts;
 using Microsoft.Maui.Platform;
 using Animation = Android.Views.Animations.Animation;
 using Application = Microsoft.Maui.Controls.Application;
@@ -48,7 +49,6 @@ public class ReusableDialog : Java.Lang.Object, IReusableDialog
         _handler = DialogHelpers.CreateNewHandler(_dlgView);
 
         var measure = DialogHelpers.Measure(_dlgView);
-
         _dlgView.Layout(new Rect(0, 0, measure.Width, measure.Height));
 
         _container = DialogHelpers.SetViewAppearance(_dlgView, _handler.PlatformView as ViewGroup);
