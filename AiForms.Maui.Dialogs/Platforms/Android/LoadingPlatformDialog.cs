@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Views;
 using System.Threading.Tasks;
 using System;
+using Java.Lang;
 
 namespace AiForms.Dialogs.Droid;
 
@@ -19,7 +20,7 @@ public class LoadingPlatformDialog : AndroidX.Fragment.App.DialogFragment
 
         System.Diagnostics.Debug.WriteLine("OnCreateDialog");
 
-        var payload = Arguments.GetSerializable(LoadingDialogPayload.PayloadKey) as LoadingDialogPayload;
+        var payload = Arguments.GetSerializable<LoadingDialogPayload>(LoadingDialogPayload.PayloadKey);
 
         _loadingView = payload.LoadingView;
         _contentView = payload.ContentView;

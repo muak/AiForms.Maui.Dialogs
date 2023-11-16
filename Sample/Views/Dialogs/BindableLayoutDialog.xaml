@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<extra:DialogView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:extra="clr-namespace:AiForms.Dialogs;assembly=AiForms.Maui.Dialogs"
+    x:Class="Sample.Views.Dialogs.BindableLayoutDialog"
+    DialogMargin="16"
+    CornerRadius="24"
+    VerticalLayoutAlignment="Center"
+    HorizontalLayoutAlignment="Fill"
+    OverlayColor="#80000000"
+                  >
+
+    <VerticalStackLayout BackgroundColor="AliceBlue">
+        <VerticalStackLayout BindableLayout.ItemsSource="{Binding ItemsSource}">           
+            
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*,Auto"
+                            RowDefinitions="Auto"
+                            ColumnSpacing="0">
+                                        
+
+                        <Label Grid.Column="0"
+                                Text="{Binding}"
+                                FontAttributes="Bold"
+                                VerticalOptions="Center"
+                                Margin="0,16,0,16"/>
+
+                        <Image Grid.Column="1"
+                                Source="dotnet_bot"
+                                WidthRequest="24" HeightRequest="24"
+                                VerticalOptions="Center"
+                                Margin="0,0,8,0" />
+
+                        <BoxView
+                            Grid.Column="0" Grid.ColumnSpan="2"
+                            HeightRequest="1" Color="Gray"
+                            VerticalOptions="End" HorizontalOptions="FillAndExpand" />
+                    </Grid>
+                </DataTemplate>
+
+            </BindableLayout.ItemTemplate>
+        </VerticalStackLayout>
+        <Button Text="OK" Clicked="Button_Clicked" />
+    </VerticalStackLayout>
+</extra:DialogView>
+

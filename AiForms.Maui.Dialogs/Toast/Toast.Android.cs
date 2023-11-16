@@ -88,7 +88,9 @@ public partial class Toast
             layout.SetBackground(border);
         }
 
+#pragma warning disable CA1422 // プラットフォームの互換性を検証
         toast.View = layout;
+#pragma warning restore CA1422 // プラットフォームの互換性を検証
 
         view.RunPresentationAnimation();
 

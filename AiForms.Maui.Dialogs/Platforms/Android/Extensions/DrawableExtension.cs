@@ -7,19 +7,17 @@ namespace AiForms.Dialogs.Droid;
 
 public static class DrawableExtension
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:プラットフォームの互換性を検証", Justification = "<保留中>")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1422:プラットフォームの互換性を検証", Justification = "<保留中>")]
     public static void SetColorFilterEx(this Drawable drawable, Android.Graphics.Color color)
-    {
+    {       
         if(Build.VERSION.SdkInt >= BuildVersionCodes.Q)
         {
-#pragma warning disable XA0001 // Android API の使用法に関する問題を見つける
             drawable.SetColorFilter(new BlendModeColorFilter(color, Android.Graphics.BlendMode.SrcIn));
-#pragma warning restore XA0001 // Android API の使用法に関する問題を見つける
         }
         else
         {
-#pragma warning disable CS0618 // 型またはメンバーが旧型式です
             drawable.SetColorFilter(color, PorterDuff.Mode.SrcIn);
-#pragma warning restore CS0618 // 型またはメンバーが旧型式です
         }
     }
 }

@@ -59,11 +59,13 @@ public static class DialogHelpers
     {
         if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
         {
+#pragma warning disable CA1416 // プラットフォームの互換性を検証
             var metrics = (Context as Activity).WindowManager.CurrentWindowMetrics;
             var inset = metrics.WindowInsets.GetInsetsIgnoringVisibility(WindowInsets.Type.SystemBars());
 
             _statusbarHeight = inset.Top;
             _navigationBarHeight = inset.Bottom;
+#pragma warning restore CA1416 // プラットフォームの互換性を検証
         }
         else
         {
