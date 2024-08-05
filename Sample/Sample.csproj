@@ -5,6 +5,7 @@
 		<OutputType>Exe</OutputType>
 		<RootNamespace>Sample</RootNamespace>
 		<UseMaui>true</UseMaui>
+		<MauiVersion>8.0.71</MauiVersion>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 
@@ -54,10 +55,10 @@
 	  <None Remove="ViewModels\Dialogs\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="AiForms.Maui.SettingsView" Version="0.1.26-pre" />
+	  <PackageReference Include="AiForms.Maui.SettingsView" Version="1.0.12" />
 	  <PackageReference Include="Prism.DryIoc.Maui" Version="9.0.271-pre" />
 	  <PackageReference Include="ReactiveProperty" Version="9.3.4" />
-	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
+	  <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Views\" />

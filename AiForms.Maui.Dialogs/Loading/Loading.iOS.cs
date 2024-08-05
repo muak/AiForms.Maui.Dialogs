@@ -27,6 +27,20 @@ public partial class Loading
         return new ReusableLoading(view);
     }
 
+    public IReusableLoading Create(object viewModel)
+    {
+        var viewType = Configurations.ViewTypeGetter(viewModel.GetType()) ?? throw new KeyNotFoundException("ViewType not found");
+        var view = Configurations.Resolve(viewType) as LoadingView ?? throw new KeyNotFoundException("View not resolved");
+
+        return Create(view, viewModel);
+    }
+
+    public IReusableLoading CreateFromModel<TViewModel>()
+    {
+        var vm = Configurations.Resolve(typeof(TViewModel));
+        return Create(vm);
+    }
+
     public void Show(string message = null, bool isCurrentScope = false)
     {
         if (DefaultInstance.IsRunning)

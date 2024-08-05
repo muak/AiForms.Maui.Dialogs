@@ -29,6 +29,7 @@ public static class MauiProgram
                     registry.RegisterForNavigation<SurveyPage>();
                     registry.RegisterForNavigation<VmTest, VmTestViewModel>();
                     registry.RegisterDialog<VmDialog, VmDialogViewModel>();
+                    registry.RegisterDialog<VmLoading, VmLoadingViewModel>();
                 });
 
                 prism.OnInitialized(container =>

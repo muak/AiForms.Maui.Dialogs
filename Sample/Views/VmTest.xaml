@@ -6,9 +6,11 @@
              Title="VmTest"
              x:DataType="vm:VmTestViewModel">
     <VerticalStackLayout Spacing="4">
-        <Button Text="VmBoot" Command="{Binding ShowVmCommand}" />
-        <Button Text="VmBoot with Result" Command="{Binding ShowVmResultCommand}" />
-        <Button Text="ViewBoot Result" Command="{Binding ShowViewResultCommand}" />
-        <Button Text="VmBoot by Type" Command="{Binding ShowVmTypeCommand}" />
+        <Button Text="Dialog VmBoot" Command="{Binding ShowVmCommand}" />
+        <Button Text="Dialog VmBoot with Result" Command="{Binding ShowVmResultCommand}" />
+        <Button Text="Dialog ViewBoot Result" Command="{Binding ShowViewResultCommand}" />
+        <Button Text="Dialog VmBoot by Type" Command="{Binding ShowVmTypeCommand}" />
+        <Button Text="Loading VmBoot" Command="{Binding LoadingVmCommand}" />
+        <Button Text="Loading VmBoot by Type" Command="{Binding LoadingVmTypeCommand}" />
     </VerticalStackLayout>
 </ContentPage>
