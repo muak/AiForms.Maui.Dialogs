@@ -30,7 +30,7 @@ public class ExtraPlatformDialog : AndroidX.Fragment.App.DialogFragment, IDialog
     {
         base.OnCreateDialog(savedInstanceState);
 
-        var payload = Arguments.GetSerializable("extraDialogPayload") as ExtraDialogPayload;
+        var payload = Arguments.GetSerializable<ExtraDialogPayload>("extraDialogPayload");
 
         _dialogView = payload.DialogView;
         _contentView = payload.ContentView;

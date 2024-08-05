@@ -127,7 +127,7 @@ public class DefaultLoading:LoadingBase
 
         SetOverlayConstrants(isCurrentScope);
 
-        _activitySpinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
+        _activitySpinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Large);
         _activitySpinner.Color = _config.IndicatorColor.ToPlatform();
         _activitySpinner.TranslatesAutoresizingMaskIntoConstraints = false;
 

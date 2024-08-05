@@ -1,6 +1,6 @@
 ﻿namespace Sample;
 
-public partial class App : PrismApplication
+public partial class App : Application
 {
     public App()
     {

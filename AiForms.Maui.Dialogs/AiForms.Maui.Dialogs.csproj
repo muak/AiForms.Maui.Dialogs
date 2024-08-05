@@ -1,23 +1,38 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>		
+		<TargetFrameworks>net8.0;net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>		
 		<UseMaui>true</UseMaui>
 		<SingleProject>false</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.2</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">26.0</SupportedOSPlatformVersion>
 
 		<RootNamespace>AiForms.Dialogs</RootNamespace>
+
+		<PackageId>AiForms.Maui.Dialogs</PackageId>
+		<Authors>kamu</Authors>
+		<Company>kamu</Company>
+		<Product>AiForms.Dialogs for .NET MAUI</Product>
+		<PackageProjectUrl>https://github.com/muak/AiForms.Maui.Dialogs</PackageProjectUrl>
+		<PackageLicenseUrl>https://github.com/muak/AiForms.Maui.Dialogs/blob/master/LICENSE.txt</PackageLicenseUrl>
+		<PackageIconUrl>https://raw.githubusercontent.com/muak/AiForms.Dialogs/master/images/icon.png</PackageIconUrl>
+		<Description>This is a collection of Custom Dialogs (Loading, Toast, CustomDialog) that can be defined with XAML for .NET MAUI (Android / iOS). This allows you to freely design the dialog content and arrange anywhere without custom renderer and effects.</Description>
+		<PackageReleaseNotes>
+			Supported .NET8
+        </PackageReleaseNotes>
+		<PackageTags>MAUI dialog toast loading progress popup xaml netstandard ios android</PackageTags>
+
+		<Configurations>Debug;Release</Configurations>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
 	  <EnableCodeSigning>False</EnableCodeSigning>
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-ios|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -42,11 +57,11 @@
 		<None Include="**\iOS\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />  
     </ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
 		<Compile Include="**\**\*.Net.cs" />		
 	</ItemGroup>
 
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-android')) == true">
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-android')) == true">
 		<Compile Include="**\**\*.Android.cs" />
 		<Compile Include="**\Android\**\*.cs" />
 		<AndroidResource Include="**\Resources\**\*.axml" Generator="MSBuild:UpdateGeneratedFiles" />
@@ -54,7 +69,7 @@
 		<AndroidResource Include="**\Resources\**\*.png" Generator="MSBuild:UpdateGeneratedFiles" />
 	</ItemGroup>
 
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-ios')) == true OR $(TargetFramework.StartsWith('net6.0-maccatalyst')) == true">
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-ios')) == true OR $(TargetFramework.StartsWith('net8.0-maccatalyst')) == true">
 		<Compile Include="**\**\*.iOS.cs" />		
 		<Compile Include="**\iOS\**\*.cs" />		
 	</ItemGroup>
@@ -81,5 +96,8 @@
 	  <AndroidResource Include="Platforms\Android\Resources\anim\extra_dialog_enter.xml" />
 	  <AndroidResource Include="Platforms\Android\Resources\values\Strings.xml" />
 	  <AndroidResource Include="Platforms\Android\Resources\values\styles.xml" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
 	</ItemGroup>
 </Project>
