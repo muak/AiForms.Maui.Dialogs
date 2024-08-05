@@ -12,6 +12,8 @@ namespace Sample.ViewModels
         public ReactiveCommand ShowVmResultCommand { get; } = new ReactiveCommand();
         public ReactiveCommand ShowViewResultCommand { get; } = new ReactiveCommand();
         public ReactiveCommand ShowVmTypeCommand { get; } = new ReactiveCommand();
+        public ReactiveCommandSlim LoadingVmCommand { get; } = new();
+        public ReactiveCommandSlim LoadingVmTypeCommand { get; } = new();
 
         public VmTestViewModel()
         {
@@ -33,6 +35,24 @@ namespace Sample.ViewModels
             ShowVmTypeCommand.Subscribe(async _ =>
             {
                 await Dialog.Instance.ShowFromModelAsync<VmDialogViewModel>();
+            });
+
+            LoadingVmCommand.Subscribe(async _ =>
+            {
+                var loading = Loading.Instance.Create(new VmLoadingViewModel());
+                await loading.StartAsync(async p =>
+                {
+                    await Task.Delay(1000);
+                });
+            });
+
+            LoadingVmTypeCommand.Subscribe(async _ =>
+            {
+                var loading = Loading.Instance.CreateFromModel<VmLoadingViewModel>();
+                await loading.StartAsync(async p =>
+                {
+                    await Task.Delay(1000);
+                });
             });
         }
     }

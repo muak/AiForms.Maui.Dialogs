@@ -4,6 +4,8 @@ public interface ILoading
 {
     IReusableLoading Create<TView>(object viewModel = null) where TView : LoadingView;
     IReusableLoading Create(LoadingView view, object viewModel = null);
+    IReusableLoading Create(object viewModel);
+    IReusableLoading CreateFromModel<TViewModel>();
 
     void Show(string message = null, bool isCurrentScope = false);
     void Hide();

@@ -11,6 +11,16 @@ public partial class Loading
     public IReusableLoading Create(LoadingView view, object viewModel = null)
     {
         throw new NotImplementedException();
+    }    
+
+    public IReusableLoading Create(object viewModel)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IReusableLoading CreateFromModel<TViewModel>()
+    {
+        throw new NotImplementedException();
     }
 
     public void Dispose()
