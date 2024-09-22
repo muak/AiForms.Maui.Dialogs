@@ -10,6 +10,7 @@
         <Button Text="Dialog VmBoot with Result" Command="{Binding ShowVmResultCommand}" />
         <Button Text="Dialog ViewBoot Result" Command="{Binding ShowViewResultCommand}" />
         <Button Text="Dialog VmBoot by Type" Command="{Binding ShowVmTypeCommand}" />
+        <Button Text="Dialog VmBoot by Type With Parameter" Command="{Binding ShowVmParamCommand}" />
         <Button Text="Loading VmBoot" Command="{Binding LoadingVmCommand}" />
         <Button Text="Loading VmBoot by Type" Command="{Binding LoadingVmTypeCommand}" />
     </VerticalStackLayout>
