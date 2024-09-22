@@ -22,7 +22,7 @@
 		<PackageIconUrl>https://raw.githubusercontent.com/muak/AiForms.Dialogs/master/images/icon.png</PackageIconUrl>
 		<Description>This is a collection of Custom Dialogs (Loading, Toast, CustomDialog) that can be defined with XAML for .NET MAUI (Android / iOS). This allows you to freely design the dialog content and arrange anywhere without custom renderer and effects.</Description>
 		<PackageReleaseNotes>
-			Supported .NET8
+			Parameters can now be passed to the dialog's ViewModel
         </PackageReleaseNotes>
 		<PackageTags>MAUI dialog toast loading progress popup xaml netstandard ios android</PackageTags>
 
