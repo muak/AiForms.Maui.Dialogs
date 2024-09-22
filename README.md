@@ -205,6 +205,35 @@ await Dialog.Instance.ShowAsync(new VmDialogViewModel { Title = "hoge" });
 // Since an instance is created internally using a pre-registered Resolver
 // constructor injection can be handled.
 await Dialog.Instance.ShowAsync<SomeViewModel>();
+
+// Some methods explicitly indicate VM startup.
+await Dialog.Instance.ShowFromModelAsync<SomeViewModel>();
+
+// This one can pass parameters by specifying the parameter type as the second type argument.
+await Dialog.Instance.ShowFromModelAsync<SomeViewModel, int>();
+```
+
+#### Parameter Receiving
+
+Prepare a ViewModel with ``IDialogViewModel<T>`` applied and receive it with the ``DialogInitializeAsync`` method.
+
+```csharp
+public class VmDialogViewModel: IDialogViewModel<int>
+{
+    public string Title { get; set; }
+    public int Number { get; set; }
+
+    public VmDialogViewModel()
+    {
+    }
+
+    public async Task DialogInitializeAsync(int parameter)
+    {
+        await Task.Delay(100);
+
+        Number = parameter;        
+    }
+}
 ```
 
 

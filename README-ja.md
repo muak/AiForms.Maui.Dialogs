@@ -202,6 +202,35 @@ await Dialog.Instance.ShowAsync(new VmDialogViewModel { Title = "hoge" });
 // 内部で事前に登録したResolverを使ってインスタンスを生成するので
 // コンストラクタインジェクションには対応可能。
 await Dialog.Instance.ShowAsync<SomeViewModel>();
+
+// VM起動を明示的に示すメソッドもあります。
+await Dialog.Instance.ShowFromModelAsync<SomeViewModel>();
+
+// こちらは第二型引数にパラメータの型を指定することでパラメータを渡すことができます。
+await Dialog.Instance.ShowFromModelAsync<SomeViewModel, int>();
+```
+
+#### パラメータ受け取り方
+
+``IDialogViewModel<T>``を適用したViewModelを用意して、``DialogInitializeAsync``メソッドで受け取ります。
+
+```csharp
+public class VmDialogViewModel: IDialogViewModel<int>
+{
+    public string Title { get; set; }
+    public int Number { get; set; }
+
+    public VmDialogViewModel()
+    {
+    }
+
+    public async Task DialogInitializeAsync(int parameter)
+    {
+        await Task.Delay(100);
+
+        Number = parameter;        
+    }
+}
 ```
 
 
