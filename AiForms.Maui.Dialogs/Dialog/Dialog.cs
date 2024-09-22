@@ -36,6 +36,16 @@ public class Dialog: IDialog
         return await ShowAsync(vm);
     }
 
+    public async Task<bool> ShowFromModelAsync<TViewModel, TParameter>(TParameter parameter)
+    {
+        var vm = Configurations.Resolve(typeof(TViewModel));
+        if(vm is IDialogViewModel<TParameter> dvm)
+        {
+            await dvm.DialogInitializeAsync(parameter);
+        }
+        return await ShowAsync(vm);
+    }
+
     public async Task<bool> ShowAsync(DialogView view, object viewModel = null)
     {
         using var dlg = Create(view, viewModel);

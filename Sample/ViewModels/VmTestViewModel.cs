@@ -12,6 +12,7 @@ namespace Sample.ViewModels
         public ReactiveCommand ShowVmResultCommand { get; } = new ReactiveCommand();
         public ReactiveCommand ShowViewResultCommand { get; } = new ReactiveCommand();
         public ReactiveCommand ShowVmTypeCommand { get; } = new ReactiveCommand();
+        public ReactiveCommandSlim ShowVmParamCommand { get; } = new();
         public ReactiveCommandSlim LoadingVmCommand { get; } = new();
         public ReactiveCommandSlim LoadingVmTypeCommand { get; } = new();
 
@@ -35,6 +36,11 @@ namespace Sample.ViewModels
             ShowVmTypeCommand.Subscribe(async _ =>
             {
                 await Dialog.Instance.ShowFromModelAsync<VmDialogViewModel>();
+            });
+
+            ShowVmParamCommand.Subscribe(async _ =>
+            {
+                await Dialog.Instance.ShowFromModelAsync<VmDialogViewModel, int>(1);
             });
 
             LoadingVmCommand.Subscribe(async _ =>

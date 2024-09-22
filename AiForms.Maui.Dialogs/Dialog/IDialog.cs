@@ -4,6 +4,7 @@ public interface IDialog
 {
     Task<bool> ShowAsync<TView>(object viewModel = null) where TView : DialogView;
     Task<bool> ShowFromModelAsync<TViewModel>();
+    Task<bool> ShowFromModelAsync<TViewModel, TParameter>(TParameter parameter);
     Task<bool> ShowAsync(DialogView view, object viewModel = null);
     Task<bool> ShowAsync(object viewModel);
     Task<TResult> ShowResultAsync<TResult>(object viewModel);
