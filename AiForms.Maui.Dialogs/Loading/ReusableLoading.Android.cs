@@ -105,7 +105,7 @@ public class ReusableLoading: LoadingBase,IReusableLoading
             var dialog = FragmentManager.FindFragmentByTag(Loading.LoadingDialogTag) as LoadingPlatformDialog;
             MainThread.BeginInvokeOnMainThread(() => 
             {
-                dialog?.Dismiss();
+                dialog?.DismissAllowingStateLoss();
                 ContentView.RemoveFromParent();
             });               
         });

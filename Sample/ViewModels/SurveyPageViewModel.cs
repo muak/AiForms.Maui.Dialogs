@@ -1,4 +1,6 @@
-﻿using Reactive.Bindings;
+﻿using AiForms.Dialogs;
+using Reactive.Bindings;
+using Sample.ViewModels.Dialogs;
 
 namespace Sample.ViewModels;
 
@@ -7,14 +9,15 @@ public class SurveyPageViewModel:BindableBase
     public ReactiveCommand ShowDialogCommand { get; } = new ReactiveCommand();
     public SurveyPageViewModel()
     {
-        var dialog = AiForms.Dialogs.Dialog.Instance;
+        var loading = AiForms.Dialogs.Loading.Instance;
         ShowDialogCommand.Subscribe(async _ =>
         {
-            var ret = await dialog.ShowAsync<Views.TestDialog>();
-            if (ret)
-            {
-                //await dialog.ShowAsync<DialogTestView>();
-            }
+            var custom = loading.CreateFromModel<VmLoadingViewModel>();
+            custom.Show();
+
+            await Task.Delay(5000);
+
+            await custom.Hide();
         });
     }
 }
