@@ -4,6 +4,7 @@
 .vs/
 mono_crash.*
 .idea/
+NuGet.Config
 
 # User-specific files
 *.suo

@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>		
+		<TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>		
 		<OutputType>Exe</OutputType>
 		<RootNamespace>Sample</RootNamespace>
 		<UseMaui>true</UseMaui>
-		<MauiVersion>8.0.71</MauiVersion>
+		<MauiVersion>8.0.100</MauiVersion>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 
@@ -21,15 +21,15 @@
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.2</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">26.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
-	  <CreatePackage>false</CreatePackage>
+		<CodesignKey>iPhone Developer</CodesignKey>
+		<CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
-	  <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+	  <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
@@ -55,7 +55,7 @@
 	  <None Remove="ViewModels\Dialogs\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="AiForms.Maui.SettingsView" Version="1.0.12" />
+	  <PackageReference Include="AiForms.Maui.SettingsView" Version="1.0.15" />
 	  <PackageReference Include="Prism.DryIoc.Maui" Version="9.0.271-pre" />
 	  <PackageReference Include="ReactiveProperty" Version="9.3.4" />
 	  <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
