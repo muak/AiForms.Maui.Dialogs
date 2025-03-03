@@ -81,7 +81,7 @@ public partial class Toast
             border.SetCornerRadius(DialogHelpers.Context.ToPixels(view.CornerRadius));
             if (!view.BackgroundColor.IsDefault())
             {
-                border.SetColor(view.BackgroundColor.ToAndroid());
+                border.SetColor(view.BackgroundColor.ToPlatform());
                 border.Alpha = (int)(view.Opacity * 255);
             }
             layout.ClipToOutline = true;
