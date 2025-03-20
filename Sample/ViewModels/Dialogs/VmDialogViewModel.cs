@@ -20,5 +20,10 @@ public class VmDialogViewModel: IDialogViewModel<int>
 
         Number.Value = parameter;        
     }
+    
+    public void Destroy()
+    {
+        System.Diagnostics.Debug.WriteLine("VmDialogViewModel Destroy");
+    }
 }
 

@@ -75,5 +75,15 @@ public class Dialog: IDialog
 
         return await dlg.ShowResultAsync<TResult>();
     }
+    
+    public async Task<TResult> ShowResultFromModelAsync<TViewModel,TParameter, TResult>(TParameter parameter)
+    {
+        var vm = Configurations.Resolve(typeof(TViewModel));
+        if(vm is IDialogViewModel<TParameter> dvm)
+        {
+            await dvm.DialogInitializeAsync(parameter);
+        }
+        return await ShowResultAsync<TResult>(vm);
+    }
 }
 

@@ -7,6 +7,7 @@ using Android.Views.Animations;
 using Android.Widget;
 using Android.Graphics;
 using AiForms.Dialogs.Droid;
+using Java.Lang;
 using Microsoft.Maui.Platform;
 
 namespace AiForms.Dialogs;
@@ -75,8 +76,13 @@ public class DefaultLoading:LoadingBase
             // Because it sometimes crashes or freezes when executing a very short process.
             await IsDialogShownTcs.Task;
             var dialog = FragmentManager.FindFragmentByTag(Loading.LoadingDialogTag) as LoadingPlatformDialog;
-            dialog?.Dismiss();
-            ContentView.RemoveFromParent();
+            
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                dialog?.DismissAllowingStateLoss();
+                ContentView.RemoveFromParent();
+            });
+            
             if(!Configurations.LoadingConfig.IsReusable)
             {
                 this.Dispose();

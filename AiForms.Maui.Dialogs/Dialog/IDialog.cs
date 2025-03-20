@@ -9,6 +9,7 @@ public interface IDialog
     Task<bool> ShowAsync(object viewModel);
     Task<TResult> ShowResultAsync<TResult>(object viewModel);
     Task<TResult> ShowResultAsync<TView, TResult>(object viewModel = null) where TView : DialogView;
+    Task<TResult> ShowResultFromModelAsync<TViewModel, TParameter, TResult>(TParameter parameter);
     IReusableDialog Create<TView>(object viewModel = null) where TView : DialogView;
     IReusableDialog Create(DialogView view, object viewModel = null);
 

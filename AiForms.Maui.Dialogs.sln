@@ -12,7 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 		LICENSE.txt = LICENSE.txt
 		README-ja.md = README-ja.md
 		README.md = README.md
-		AzurePipelines.nuspec = AzurePipelines.nuspec
 	EndProjectSection
 EndProject
 Global

@@ -227,6 +227,10 @@ public class ReusableDialog : Java.Lang.Object, IReusableDialog
         if (disposing)
         {
             _dlgView.Destroy();
+            if(_dlgView.BindingContext is IDialogViewModelDestroy vm)
+            {
+                vm.Destroy();
+            }
             _dlgView.LayoutNative = null;
             _dlgView.BindingContext = null;
             _dlgView.Parent = null;
