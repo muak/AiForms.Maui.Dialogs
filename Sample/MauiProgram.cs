@@ -43,6 +43,15 @@ public static class MauiProgram
 
                 prism.OnAppStart(async (container, navigationService) =>
                 {
+                    AppDomain.CurrentDomain.UnhandledException += (_, e) =>
+                    {
+                        ;
+                    };
+                    TaskScheduler.UnobservedTaskException += (s, e) =>
+                    {
+                        e.SetObserved();
+                    };
+                    
                     await navigationService.NavigateAsync("/NavigationPage/IndexPage");
                 });
             })

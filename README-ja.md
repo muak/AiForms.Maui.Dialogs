@@ -438,6 +438,8 @@ public async Task SomeMethod()
 
 ### Methods
 
+ViewModelを型指定するメソッドは事前に``SetIocConfig``でViewとViewModelの関連付けを登録しておく必要があります。
+
 #### Task`<bool>` ShowAsync`<T>`(object viewModel = null)
 #### Task`<bool>` ShowAsync(DialogView view, object viewModel = null)
     
@@ -445,6 +447,23 @@ public async Task SomeMethod()
 * ダイアログが閉じられたとき、全ての関連リソースは自動的に破棄されます。
 * Cancelの場合はfalse, Completeの場合はtrueを返します。
 
+####  Task<bool> ShowFromModelAsync<TViewModel>();
+####  Task<bool> ShowFromModelAsync<TViewModel, TParameter>(TParameter parameter);
+
+* ViewModelの型を指定してダイアログを表示します。
+* パラメータを渡すこともできます。
+
+#### Task<TResult> ShowResultAsync<TView, TResult>(object viewModel = null)
+
+* DialogViewの型と結果の型を指定してダイアログを表示します。任意でBindingするためのViewModelを渡すことができます。
+
+#### Task<TResult> ShowResultAsync<TResult>(object viewModel)
+
+* 結果の型を指定してダイアログを表示します。任意でBindingするためのViewModelを渡すことができます。ViewModelに事前に登録されたViewを呼び出します。
+
+#### Task<TResult> ShowResultFromModelAsync<TViewModel,TParameter, TResult>(TParameter parameter)
+
+* ViewModelの型とパラメータの型と結果の型を指定してパラメータを渡してダイアログを表示します。
 
 #### IReusableDialog Create`<TView>`(object viewModel = null) 
 #### IReusableDialog Create(DialogView view, object viewModel = null)

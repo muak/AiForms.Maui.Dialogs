@@ -23,7 +23,8 @@ namespace AiForms.Dialogs.Droid;
 
 public static class DialogHelpers
 {
-    internal static Context Context => Platform.CurrentActivity;    
+    private static Context _context;
+    internal static Context Context => _context ??= Platform.CurrentActivity; 
 
     internal static AndroidX.Fragment.App.FragmentManager FragmentManager => (Context as Activity)?.GetFragmentManager();
 

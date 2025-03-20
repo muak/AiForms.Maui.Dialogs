@@ -79,6 +79,10 @@ public class ReusableDialog: IReusableDialog
     public void Dispose()
     {
         _dlgView.Destroy();
+        if(_dlgView.BindingContext is IDialogViewModelDestroy vm)
+        {
+            vm.Destroy();
+        }
         _dlgView.Parent = null;
         _dlgView.DisposeModalAndChildHandlers();
         _dlgView.BindingContext = null;

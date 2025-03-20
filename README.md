@@ -441,12 +441,38 @@ public async Task SomeMethod()
 
 ### Methods
 
+The method that specifies the ViewModel type must be registered in advance with ``SetIocConfig`` to associate the View with the ViewModel.
+
 #### Task`<bool>` ShowAsync`<T>`(object viewModel = null)
 #### Task`<bool>` ShowAsync(DialogView view, object viewModel = null)
     
 * A dialog is shown by specifying a Type or a view instance. Optionally, A view model can be passed to in order to bind.
 * If canceled, return is false; Otherwise true.
 * When the dialog is closed, all related resource automatically are disposed.
+
+####  Task<bool> ShowFromModelAsync<TViewModel>();
+####  Task<bool> ShowFromModelAsync<TViewModel, TParameter>(TParameter parameter);
+
+* A dialog is shown by specifying a ViewModel Type. Optionally, A parameter can be passed to the ViewModel.
+
+####  Task<bool> ShowFromModelAsync<TViewModel>();
+####  Task<bool> ShowFromModelAsync<TViewModel, TParameter>(TParameter parameter);
+
+* Display a dialog with a ViewModel type.
+* You can also pass parameters.
+
+#### Task<TResult> ShowResultAsync<TView, TResult>(object viewModel = null)
+
+* Specify the DialogView type and result type to display the dialog. You can optionally pass a ViewModel for binding.
+
+#### Task<TResult> ShowResultAsync<TResult>(object viewModel)
+
+* Display a dialog with the result type. You can optionally pass a ViewModel for Binding, which will call a View pre-registered in the ViewModel.
+
+#### Task<TResult> ShowResultFromModelAsync<TViewModel,TParameter, TResult>(TParameter parameter)
+
+* Pass parameters and display the dialog, specifying the ViewModel type, parameter type, and result type.
+
 
 #### IReusableDialog Create`<TView>`(object viewModel = null) 
 #### IReusableDialog Create(DialogView view, object viewModel = null)
