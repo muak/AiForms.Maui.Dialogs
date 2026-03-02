@@ -96,13 +96,17 @@ public partial class Loading
 
     bool IsRunning()
     {
-        var dialog = DialogHelpers.FragmentManager.FindFragmentByTag(LoadingDialogTag) as LoadingPlatformDialog;
+        var fm = DialogHelpers.FragmentManager;
+        if (fm == null || fm.IsDestroyed) return false;
+        var dialog = fm.FindFragmentByTag(LoadingDialogTag) as LoadingPlatformDialog;
         return dialog != null;
     }
 
     async Task WaitDialogDestroy()
     {
-        var dialog = DialogHelpers.FragmentManager.FindFragmentByTag(Loading.LoadingDialogTag) as LoadingPlatformDialog;
+        var fm = DialogHelpers.FragmentManager;
+        if (fm == null || fm.IsDestroyed) return;
+        var dialog = fm.FindFragmentByTag(Loading.LoadingDialogTag) as LoadingPlatformDialog;
         if (dialog == null)
         {
             return;

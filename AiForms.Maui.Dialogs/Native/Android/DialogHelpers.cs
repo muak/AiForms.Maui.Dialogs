@@ -23,297 +23,296 @@ namespace AiForms.Dialogs.Droid;
 
 public static class DialogHelpers
 {
-    private static Context _context;
-    internal static Context Context => _context ??= Platform.CurrentActivity; 
+	internal static Context Context => Platform.CurrentActivity;
 
-    internal static AndroidX.Fragment.App.FragmentManager FragmentManager => (Context as Activity)?.GetFragmentManager();
+	internal static AndroidX.Fragment.App.FragmentManager FragmentManager => (Context as Activity)?.GetFragmentManager();
 
-    static int? _statusbarHeight;
-    internal static int StatusBarHeight => _statusbarHeight ?? GetBarSize().statusBar;
+	static int? _statusbarHeight;
+	internal static int StatusBarHeight => _statusbarHeight ?? GetBarSize().statusBar;
 
-    static int? _navigationBarHeight;
-    internal static int NavigationBarHeight => _navigationBarHeight ?? GetBarSize().navigationBar;
+	static int? _navigationBarHeight;
+	internal static int NavigationBarHeight => _navigationBarHeight ?? GetBarSize().navigationBar;
 
-    static Size? _contentSize;
-    internal static Size ContentSize
-    {
-        get
-        {
-            if(_contentSize != null)
-            {
-                return _contentSize.Value;
-            }
+	static Size? _contentSize;
+	internal static Size ContentSize
+	{
+		get
+		{
+			if (_contentSize != null)
+			{
+				return _contentSize.Value;
+			}
 
-            Rect contentSize = new Rect();
-            (Context as Activity)?.Window.DecorView.GetWindowVisibleDisplayFrame(contentSize);
-            _contentSize = new Size(contentSize.Width(), contentSize.Height());
+			Rect contentSize = new Rect();
+			(Context as Activity)?.Window.DecorView.GetWindowVisibleDisplayFrame(contentSize);
+			_contentSize = new Size(contentSize.Width(), contentSize.Height());
 
-            int availableHeight = Context.Resources.DisplayMetrics.HeightPixels;
+			int availableHeight = Context.Resources.DisplayMetrics.HeightPixels;
 
-            _statusBarHeightInContent = availableHeight - contentSize.Height();
+			_statusBarHeightInContent = availableHeight - contentSize.Height();
 
-            return _contentSize.Value;
-        }
-    }
+			return _contentSize.Value;
+		}
+	}
 
-    internal static (int statusBar, int navigationBar) GetBarSize()
-    {
-        if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
-        {
+	internal static (int statusBar, int navigationBar) GetBarSize()
+	{
+		if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
+		{
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
-            var metrics = (Context as Activity).WindowManager.CurrentWindowMetrics;
-            var inset = metrics.WindowInsets.GetInsetsIgnoringVisibility(WindowInsets.Type.SystemBars());
+			var metrics = (Context as Activity).WindowManager.CurrentWindowMetrics;
+			var inset = metrics.WindowInsets.GetInsetsIgnoringVisibility(WindowInsets.Type.SystemBars());
 
-            _statusbarHeight = inset.Top;
-            _navigationBarHeight = inset.Bottom;
+			_statusbarHeight = inset.Top;
+			_navigationBarHeight = inset.Bottom;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
-        }
-        else
-        {
-            _statusbarHeight =
-        Context.Resources.GetDimensionPixelSize(Context.Resources.GetIdentifier("status_bar_height", "dimen", "android"));
-            _navigationBarHeight =
-        Context.Resources.GetDimensionPixelSize(Context.Resources.GetIdentifier("navigation_bar_height", "dimen", "android"));
-        }
+		}
+		else
+		{
+			_statusbarHeight =
+		Context.Resources.GetDimensionPixelSize(Context.Resources.GetIdentifier("status_bar_height", "dimen", "android"));
+			_navigationBarHeight =
+		Context.Resources.GetDimensionPixelSize(Context.Resources.GetIdentifier("navigation_bar_height", "dimen", "android"));
+		}
 
-        return (_statusbarHeight.Value, _navigationBarHeight.Value);
-    }
+		return (_statusbarHeight.Value, _navigationBarHeight.Value);
+	}
 
-    // Height of status bar included in content area
-    static int? _statusBarHeightInContent;
-    internal static int StatusBarHeightInContent
-    {
-        get
-        {
-            if (!_contentSize.HasValue)
-            {
-                _ = ContentSize;
-            }
-            
-            return _statusBarHeightInContent.Value;
-        }
-    }
+	// Height of status bar included in content area
+	static int? _statusBarHeightInContent;
+	internal static int StatusBarHeightInContent
+	{
+		get
+		{
+			if (!_contentSize.HasValue)
+			{
+				_ = ContentSize;
+			}
 
-    internal static int DisplayHeight => StatusBarHeight + ContentSize.Height;
+			return _statusBarHeightInContent.Value;
+		}
+	}
 
-    internal static IPlatformViewHandler CreateNewHandler(View view)
-    {
-        return view.ToHandler(view.FindMauiContext());
-    }
+	internal static int DisplayHeight => StatusBarHeight + ContentSize.Height;
 
-    internal static Android.App.Dialog CreateFullScreenTransparentDialog(AView contentView)
-    {
-        var dialog = new Android.App.Dialog(Context, Resource.Style.NoDimDialogFragmentStyle);
+	internal static IPlatformViewHandler CreateNewHandler(View view)
+	{
+		return view.ToHandler(view.FindMauiContext());
+	}
 
-        dialog.RequestWindowFeature((int)WindowFeatures.NoTitle);
-        dialog.SetContentView(contentView);
+	internal static Android.App.Dialog CreateFullScreenTransparentDialog(AView contentView)
+	{
+		var dialog = new Android.App.Dialog(Context, Resource.Style.NoDimDialogFragmentStyle);
 
-        dialog.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Transparent));
-        dialog.Window.SetLayout(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
+		dialog.RequestWindowFeature((int)WindowFeatures.NoTitle);
+		dialog.SetContentView(contentView);
 
-        return dialog;
-    }
+		dialog.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Transparent));
+		dialog.Window.SetLayout(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
 
-    internal static MauiSize Measure(ExtraView view)
-    {
-        var dWidth = Context.FromPixels(ContentSize.Width);
-        var dHeight = Context.FromPixels(ContentSize.Height);
+		return dialog;
+	}
 
-        bool isFixWidth = true;
-        bool isFixHeight = true;
-        var marginTop = view.DialogMargin.Top;
-        var marginLeft = view.DialogMargin.Left;
-        var marginBottom = view.DialogMargin.Bottom;
-        var marginRight = view.DialogMargin.Right;
+	internal static MauiSize Measure(ExtraView view)
+	{
+		var dWidth = Context.FromPixels(ContentSize.Width);
+		var dHeight = Context.FromPixels(ContentSize.Height);
 
-        double fWidth = dWidth;
-        if (view.ProportionalWidth >= 0)
-        {
-            fWidth = dWidth * view.ProportionalWidth;
-        }
-        else if (view.HorizontalLayoutAlignment == LayoutAlignment.Fill)
-        {
-            fWidth = dWidth - marginLeft - marginRight;
-        }
-        else if (view.WidthRequest == -1)
-        {
-            fWidth = double.PositiveInfinity;
-            isFixWidth = false;
-        }
-        else if (view.WidthRequest >= 0)
-        {
-            fWidth = view.WidthRequest;
-        }
+		bool isFixWidth = true;
+		bool isFixHeight = true;
+		var marginTop = view.DialogMargin.Top;
+		var marginLeft = view.DialogMargin.Left;
+		var marginBottom = view.DialogMargin.Bottom;
+		var marginRight = view.DialogMargin.Right;
 
-        double fHeight = dHeight;
-        double maxHeight = dHeight - marginTop - marginBottom;
-        if (view.ProportionalHeight >= 0)
-        {
-            fHeight = dHeight * view.ProportionalHeight;
-        }
-        else if (view.VerticalLayoutAlignment == LayoutAlignment.Fill)
-        {
-            fHeight = maxHeight;
-        }
-        else if (view.HeightRequest == -1)
-        {
-            fHeight = double.PositiveInfinity;
-            isFixHeight = false;
-        }
-        else if (view.HeightRequest >= 0)
-        {
-            fHeight = view.HeightRequest;
-        }
+		double fWidth = dWidth;
+		if (view.ProportionalWidth >= 0)
+		{
+			fWidth = dWidth * view.ProportionalWidth;
+		}
+		else if (view.HorizontalLayoutAlignment == LayoutAlignment.Fill)
+		{
+			fWidth = dWidth - marginLeft - marginRight;
+		}
+		else if (view.WidthRequest == -1)
+		{
+			fWidth = double.PositiveInfinity;
+			isFixWidth = false;
+		}
+		else if (view.WidthRequest >= 0)
+		{
+			fWidth = view.WidthRequest;
+		}
+
+		double fHeight = dHeight;
+		double maxHeight = dHeight - marginTop - marginBottom;
+		if (view.ProportionalHeight >= 0)
+		{
+			fHeight = dHeight * view.ProportionalHeight;
+		}
+		else if (view.VerticalLayoutAlignment == LayoutAlignment.Fill)
+		{
+			fHeight = maxHeight;
+		}
+		else if (view.HeightRequest == -1)
+		{
+			fHeight = double.PositiveInfinity;
+			isFixHeight = false;
+		}
+		else if (view.HeightRequest >= 0)
+		{
+			fHeight = view.HeightRequest;
+		}
 
 
-        if (!isFixWidth || !isFixHeight)
-        {
-            var handler = (IPlatformViewHandler)view.Handler;
-            
-            var sizeRequest = handler.VirtualView.Measure(fWidth, fHeight);
-            var requestHeight = Math.Min(sizeRequest.Height, maxHeight);
+		if (!isFixWidth || !isFixHeight)
+		{
+			var handler = (IPlatformViewHandler)view.Handler;
 
-            var reqWidth = isFixWidth ? fWidth : sizeRequest.Width;            
-            var reqHeight = isFixHeight ? fHeight : requestHeight;
+			var sizeRequest = handler.VirtualView.Measure(fWidth, fHeight);
+			var requestHeight = Math.Min(sizeRequest.Height, maxHeight);
 
-            return new MauiSize(reqWidth, reqHeight);           
-        }
+			var reqWidth = isFixWidth ? fWidth : sizeRequest.Width;
+			var reqHeight = isFixHeight ? fHeight : requestHeight;
 
-        return new MauiSize(fWidth, fHeight);
-    }
+			return new MauiSize(reqWidth, reqHeight);
+		}
 
-    internal static void SetOffsetMargin(FrameLayout.LayoutParams layoutParams, ExtraView view)
-    {
-        var offsetX = (int)Context.ToPixels(view.OffsetX);
-        var offsetY = (int)Context.ToPixels(view.OffsetY);
+		return new MauiSize(fWidth, fHeight);
+	}
 
-        // the offset direction is reversed when GravityFlags contains Left or Bottom.
-        if (view.HorizontalLayoutAlignment == LayoutAlignment.End)
-        {
-            layoutParams.RightMargin = offsetX * -1;
-        }
-        else
-        {
-            layoutParams.LeftMargin = offsetX;
-        }
+	internal static void SetOffsetMargin(FrameLayout.LayoutParams layoutParams, ExtraView view)
+	{
+		var offsetX = (int)Context.ToPixels(view.OffsetX);
+		var offsetY = (int)Context.ToPixels(view.OffsetY);
 
-        if (view.VerticalLayoutAlignment == LayoutAlignment.End)
-        {
-            layoutParams.BottomMargin = offsetY * -1;
-        }
-        else
-        {
-            layoutParams.TopMargin = offsetY;
-        }
-    }
+		// the offset direction is reversed when GravityFlags contains Left or Bottom.
+		if (view.HorizontalLayoutAlignment == LayoutAlignment.End)
+		{
+			layoutParams.RightMargin = offsetX * -1;
+		}
+		else
+		{
+			layoutParams.LeftMargin = offsetX;
+		}
 
-    internal static void SetOffsetMargin(FrameLayout.LayoutParams layoutParams, int offsetX,int offsetY)
-    {
-        layoutParams.LeftMargin = (int)Context.ToPixels(offsetX);
-        layoutParams.TopMargin = (int)Context.ToPixels(offsetY);
-    }
+		if (view.VerticalLayoutAlignment == LayoutAlignment.End)
+		{
+			layoutParams.BottomMargin = offsetY * -1;
+		}
+		else
+		{
+			layoutParams.TopMargin = offsetY;
+		}
+	}
 
-    internal static ViewGroup SetViewAppearance(ExtraView virtualView,ViewGroup nativeView)
-    {            
-        if (virtualView.CornerRadius > 0 && virtualView.BorderWidth > 0)
-        {
-            var wrapper = new CardView(Context);
-            wrapper.Radius = Context.ToPixels(virtualView.CornerRadius);
-            wrapper.SetCardBackgroundColor(virtualView.BorderColor.ToPlatform());
-            wrapper.CardElevation = 0;
-            var borderW = (int)Context.ToPixels(virtualView.BorderWidth);
-            wrapper.SetContentPadding(borderW, borderW, borderW, borderW);
-            wrapper.SetClipChildren(true);
+	internal static void SetOffsetMargin(FrameLayout.LayoutParams layoutParams, int offsetX, int offsetY)
+	{
+		layoutParams.LeftMargin = (int)Context.ToPixels(offsetX);
+		layoutParams.TopMargin = (int)Context.ToPixels(offsetY);
+	}
 
-            var inner = nativeView;
-            var border = new GradientDrawable();
-            var innerRadius = Math.Max(virtualView.CornerRadius - virtualView.BorderWidth, 0);
-            border.SetCornerRadius(Context.ToPixels(innerRadius));
-            if (!virtualView.BackgroundColor.IsDefault())
-            {
-                border.SetColor(virtualView.BackgroundColor.ToPlatform());
-            }
+	internal static ViewGroup SetViewAppearance(ExtraView virtualView, ViewGroup nativeView)
+	{
+		if (virtualView.CornerRadius > 0 && virtualView.BorderWidth > 0)
+		{
+			var wrapper = new CardView(Context);
+			wrapper.Radius = Context.ToPixels(virtualView.CornerRadius);
+			wrapper.SetCardBackgroundColor(virtualView.BorderColor.ToPlatform());
+			wrapper.CardElevation = 0;
+			var borderW = (int)Context.ToPixels(virtualView.BorderWidth);
+			wrapper.SetContentPadding(borderW, borderW, borderW, borderW);
+			wrapper.SetClipChildren(true);
 
-            inner.SetBackground(border);
-            inner.ClipToOutline = true;
+			var inner = nativeView;
+			var border = new GradientDrawable();
+			var innerRadius = Math.Max(virtualView.CornerRadius - virtualView.BorderWidth, 0);
+			border.SetCornerRadius(Context.ToPixels(innerRadius));
+			if (!virtualView.BackgroundColor.IsDefault())
+			{
+				border.SetColor(virtualView.BackgroundColor.ToPlatform());
+			}
 
-            wrapper.AddView(inner);
-            return wrapper;
-        }
+			inner.SetBackground(border);
+			inner.ClipToOutline = true;
 
-        if(virtualView.CornerRadius > 0 || virtualView.BorderWidth > 0)
-        {
-            var border = new GradientDrawable();
-            if (virtualView.CornerRadius > 0)
-            {
-                border.SetCornerRadius(Context.ToPixels(virtualView.CornerRadius));
-            }
-            if (!virtualView.BackgroundColor.IsDefault())
-            {
-                border.SetColor(virtualView.BackgroundColor.ToPlatform());
-            }
+			wrapper.AddView(inner);
+			return wrapper;
+		}
 
-            if (virtualView.BorderWidth > 0)
-            {
-                var borderW = (int)Context.ToPixels(virtualView.BorderWidth);
-                border.SetStroke(borderW, virtualView.BorderColor.ToPlatform());
-                nativeView.SetPadding(borderW, borderW, borderW, borderW);
-            }
+		if (virtualView.CornerRadius > 0 || virtualView.BorderWidth > 0)
+		{
+			var border = new GradientDrawable();
+			if (virtualView.CornerRadius > 0)
+			{
+				border.SetCornerRadius(Context.ToPixels(virtualView.CornerRadius));
+			}
+			if (!virtualView.BackgroundColor.IsDefault())
+			{
+				border.SetColor(virtualView.BackgroundColor.ToPlatform());
+			}
 
-            nativeView.SetBackground(border);
-            nativeView.ClipToOutline = true;
-        }
+			if (virtualView.BorderWidth > 0)
+			{
+				var borderW = (int)Context.ToPixels(virtualView.BorderWidth);
+				border.SetStroke(borderW, virtualView.BorderColor.ToPlatform());
+				nativeView.SetPadding(borderW, borderW, borderW, borderW);
+			}
 
-        return nativeView;
-    }
+			nativeView.SetBackground(border);
+			nativeView.ClipToOutline = true;
+		}
 
-    internal static GravityFlags GetGravity(ExtraView view)
-    {
-        GravityFlags gravity = GravityFlags.NoGravity;
-        switch (view.VerticalLayoutAlignment)
-        {
-            case LayoutAlignment.Start:
-                gravity |= GravityFlags.Top;
-                break;
-            case LayoutAlignment.End:
-                gravity |= GravityFlags.Bottom;
-                break;
-            default:
-                gravity |= GravityFlags.CenterVertical;
-                break;
-        }
+		return nativeView;
+	}
 
-        switch (view.HorizontalLayoutAlignment)
-        {
-            case LayoutAlignment.Start:
-                gravity |= GravityFlags.Left;
-                break;
-            case LayoutAlignment.End:
-                gravity |= GravityFlags.Right;
-                break;
-            default:
-                gravity |= GravityFlags.CenterHorizontal;
-                break;
-        }
+	internal static GravityFlags GetGravity(ExtraView view)
+	{
+		GravityFlags gravity = GravityFlags.NoGravity;
+		switch (view.VerticalLayoutAlignment)
+		{
+			case LayoutAlignment.Start:
+				gravity |= GravityFlags.Top;
+				break;
+			case LayoutAlignment.End:
+				gravity |= GravityFlags.Bottom;
+				break;
+			default:
+				gravity |= GravityFlags.CenterVertical;
+				break;
+		}
 
-        return gravity;
-    }
+		switch (view.HorizontalLayoutAlignment)
+		{
+			case LayoutAlignment.Start:
+				gravity |= GravityFlags.Left;
+				break;
+			case LayoutAlignment.End:
+				gravity |= GravityFlags.Right;
+				break;
+			default:
+				gravity |= GravityFlags.CenterHorizontal;
+				break;
+		}
 
-    internal static (int top, int bottom) CalcWindowPadding()
-    {
-        var activePage = Application.Current.MainPage.GetActivePage();
-        var activeHandler = activePage.ToHandler(activePage.FindMauiContext());
-       
-        var rect = new Rect();       
-        activeHandler.PlatformView.GetGlobalVisibleRect(rect);
+		return gravity;
+	}
 
-        var top = rect.Top;
-        // If the device is that StatusBarSize is not included in ContentArea
-        if(StatusBarHeightInContent == 0)
-        {            
-            top -= StatusBarHeight;  
-        }
+	internal static (int top, int bottom) CalcWindowPadding()
+	{
+		var activePage = Application.Current.MainPage.GetActivePage();
+		var activeHandler = activePage.ToHandler(activePage.FindMauiContext());
 
-        return (top, DisplayHeight - rect.Bottom);
-    }
+		var rect = new Rect();
+		activeHandler.PlatformView.GetGlobalVisibleRect(rect);
+
+		var top = rect.Top;
+		// If the device is that StatusBarSize is not included in ContentArea
+		if (StatusBarHeightInContent == 0)
+		{
+			top -= StatusBarHeight;
+		}
+
+		return (top, DisplayHeight - rect.Bottom);
+	}
 }

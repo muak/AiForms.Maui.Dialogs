@@ -53,7 +53,9 @@ public class DefaultLoading:LoadingBase
         _message = message ?? _config.DefaultMessage;
         _messageLabel.Text = _message;
 
-        PlatformDialog.Show(FragmentManager, Loading.LoadingDialogTag);
+        var fm = FragmentManager;
+        if (fm == null || fm.IsDestroyed) return;
+        PlatformDialog.Show(fm, Loading.LoadingDialogTag);
     }
 
     public void Hide()
@@ -75,7 +77,10 @@ public class DefaultLoading:LoadingBase
             // Wait for ensuring that the dialog is created. 
             // Because it sometimes crashes or freezes when executing a very short process.
             await IsDialogShownTcs.Task;
-            var dialog = FragmentManager.FindFragmentByTag(Loading.LoadingDialogTag) as LoadingPlatformDialog;
+            var fm = FragmentManager;
+            var dialog = fm?.IsDestroyed == false
+                ? fm.FindFragmentByTag(Loading.LoadingDialogTag) as LoadingPlatformDialog
+                : null;
             
             MainThread.BeginInvokeOnMainThread(() =>
             {
