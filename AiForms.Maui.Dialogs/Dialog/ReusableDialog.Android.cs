@@ -120,7 +120,13 @@ public class ReusableDialog : Java.Lang.Object, IReusableDialog
 
     public async Task<bool> ShowAsync()
     {
-        var dialog = FragmentManager.FindFragmentByTag(_guid.ToString()) as ExtraPlatformDialog;
+        var fm = FragmentManager;
+        if (fm == null || fm.IsDestroyed)
+        {
+            return false;
+        }
+
+        var dialog = fm.FindFragmentByTag(_guid.ToString()) as ExtraPlatformDialog;
         if (dialog != null)
         {
             return false;
@@ -154,7 +160,7 @@ public class ReusableDialog : Java.Lang.Object, IReusableDialog
         bundle.PutSerializable("extraDialogPayload", payload);
         _platformDialog = new ExtraPlatformDialog();
         _platformDialog.Arguments = bundle;
-        _platformDialog.Show(FragmentManager, _guid.ToString());
+        _platformDialog.Show(fm, _guid.ToString());
 
         try
         {
@@ -173,7 +179,13 @@ public class ReusableDialog : Java.Lang.Object, IReusableDialog
 
     public async Task<TResult> ShowResultAsync<TResult>()
     {
-        var dialog = FragmentManager.FindFragmentByTag(_guid.ToString()) as ExtraPlatformDialog;
+        var fm = FragmentManager;
+        if (fm == null || fm.IsDestroyed)
+        {
+            return default;
+        }
+
+        var dialog = fm.FindFragmentByTag(_guid.ToString()) as ExtraPlatformDialog;
         if (dialog != null)
         {
             return default;
@@ -206,7 +218,7 @@ public class ReusableDialog : Java.Lang.Object, IReusableDialog
         bundle.PutSerializable("extraDialogPayload", payload);
         _platformDialog = new ExtraPlatformDialog();
         _platformDialog.Arguments = bundle;
-        _platformDialog.Show(FragmentManager, _guid.ToString());
+        _platformDialog.Show(fm, _guid.ToString());
 
         try
         {
@@ -292,9 +304,12 @@ public class ReusableDialog : Java.Lang.Object, IReusableDialog
         await tcs.Task;
         anim.AnimationEnd -= handler;
 
-        var dialog = FragmentManager.FindFragmentByTag(_guid.ToString()) as ExtraPlatformDialog;
-        dialog.Clear();
-        dialog.Dismiss();
+        var fm = FragmentManager;
+        var dialog = fm?.IsDestroyed == false
+            ? fm.FindFragmentByTag(_guid.ToString()) as ExtraPlatformDialog
+            : null;
+        dialog?.Clear();
+        dialog?.DismissAllowingStateLoss();
         _contentView.RemoveFromParent();
         _handler.PlatformView.RemoveFromParent();
         _handler.DisconnectHandler();

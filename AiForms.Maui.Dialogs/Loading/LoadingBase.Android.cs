@@ -49,18 +49,22 @@ public class LoadingBase:IDisposable
 
     protected bool IsRunning()
     {
-        var dialog = DialogHelpers.FragmentManager.FindFragmentByTag(Loading.LoadingDialogTag) as LoadingPlatformDialog;
+        var fm = DialogHelpers.FragmentManager;
+        if (fm == null || fm.IsDestroyed) return false;
+        var dialog = fm.FindFragmentByTag(Loading.LoadingDialogTag) as LoadingPlatformDialog;
         return dialog != null;
     }
 
     protected async Task WaitDialogDestroy()
     {
-        var dialog = DialogHelpers.FragmentManager.FindFragmentByTag(Loading.LoadingDialogTag) as LoadingPlatformDialog;
+        var fm = DialogHelpers.FragmentManager;
+        if (fm == null || fm.IsDestroyed) return;
+        var dialog = fm.FindFragmentByTag(Loading.LoadingDialogTag) as LoadingPlatformDialog;
         if(dialog == null)
         {
             return;
         }
-        
+
         await dialog.DestroyTcs.Task;
         await Task.Delay(100); // in additon, wait for a bit time untile dialog is completely released.
     }
