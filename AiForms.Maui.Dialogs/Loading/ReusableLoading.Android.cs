@@ -28,10 +28,14 @@ public class ReusableLoading: LoadingBase,IReusableLoading
 
     public override void Dispose()
     {
-        _loadingView.Destroy();
-        _loadingView.BindingContext = null;
-        _loadingView.Parent = null;
-        _loadingView = null;
+        // _loadingView が null の場合は既に Dispose 済み
+        if (_loadingView != null)
+        {
+            _loadingView.Destroy();
+            _loadingView.BindingContext = null;
+            _loadingView.Parent = null;
+            _loadingView = null;
+        }
 
         if (_handler != null)
         {            
