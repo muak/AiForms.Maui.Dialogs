@@ -238,24 +238,31 @@ public class ReusableDialog : Java.Lang.Object, IReusableDialog
     {
         if (disposing)
         {
-            _dlgView.Destroy();
-            if(_dlgView.BindingContext is IDialogViewModelDestroy vm)
+            // _dlgView が null の場合は既に Dispose 済み、または初期化されていない
+            if (_dlgView != null)
             {
-                vm.Destroy();
+                _dlgView.Destroy();
+                if(_dlgView.BindingContext is IDialogViewModelDestroy vm)
+                {
+                    vm.Destroy();
+                }
+                _dlgView.LayoutNative = null;
+                _dlgView.BindingContext = null;
+                _dlgView.Parent = null;
+                _dlgView.Handler = null;
+                _dlgView = null;
             }
-            _dlgView.LayoutNative = null;
-            _dlgView.BindingContext = null;
-            _dlgView.Parent = null;
-            _dlgView.Handler = null;
-            _dlgView = null;
 
-            _contentView.Touch -= _contentView_Touch;
+            // _contentView が null の場合は Initialize() が未実行
+            if (_contentView != null)
+            {
+                _contentView.Touch -= _contentView_Touch;
+                _contentView.Dispose();
+                _contentView = null;
+            }
 
             _container?.Dispose();
             _container = null;
-            
-            _contentView.Dispose();
-            _contentView = null;
 
             _handler = null;
 

@@ -26,13 +26,19 @@ public class LoadingBase:IDisposable
 
     public virtual void Dispose()
     {
-        NSLayoutConstraint.DeactivateConstraints(_overlayConstraints.ToArray());
-        _overlayConstraints.Clear();
-        _overlayConstraints = null;
+        if (_overlayConstraints != null)
+        {
+            NSLayoutConstraint.DeactivateConstraints(_overlayConstraints.ToArray());
+            _overlayConstraints.Clear();
+            _overlayConstraints = null;
+        }
 
-        OverlayView.RemoveFromSuperview();
-        OverlayView.Dispose();
-        OverlayView = null;
+        if (OverlayView != null)
+        {
+            OverlayView.RemoveFromSuperview();
+            OverlayView.Dispose();
+            OverlayView = null;
+        }
 
         Progress = null;
         IsCurrentScope = null;
