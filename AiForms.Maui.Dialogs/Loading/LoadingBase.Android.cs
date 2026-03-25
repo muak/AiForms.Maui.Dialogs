@@ -38,9 +38,13 @@ public class LoadingBase:IDisposable
     {
         MainThread.BeginInvokeOnMainThread(() =>
         {
-            ContentView.RemoveFromParent();
-            ContentView.Dispose();
-            ContentView = null;
+            // ContentView が null の場合は既に Dispose 済み
+            if (ContentView != null)
+            {
+                ContentView.RemoveFromParent();
+                ContentView.Dispose();
+                ContentView = null;
+            }
         });
 
         OnceInitializeAction = null;

@@ -78,35 +78,58 @@ public class ReusableDialog: IReusableDialog
 
     public void Dispose()
     {
-        _dlgView.Destroy();
-        if(_dlgView.BindingContext is IDialogViewModelDestroy vm)
+        // _dlgView が null の場合は既に Dispose 済み、または初期化されていない
+        if (_dlgView != null)
         {
-            vm.Destroy();
+            _dlgView.Destroy();
+            if(_dlgView.BindingContext is IDialogViewModelDestroy vm)
+            {
+                vm.Destroy();
+            }
+            _dlgView.Parent = null;
+            _dlgView.DisposeModalAndChildHandlers();
+            _dlgView.BindingContext = null;
+            _dlgView.Handler = null;
+            _dlgView = null;
         }
-        _dlgView.Parent = null;
-        _dlgView.DisposeModalAndChildHandlers();
-        _dlgView.BindingContext = null;
-        _dlgView.Handler = null;
-        _dlgView = null;
 
-        var tapGesture = _overlayView.GestureRecognizers.FirstOrDefault();
-        _overlayView.RemoveGestureRecognizer(tapGesture);
-        tapGesture?.Dispose();
+        // _overlayView はコンストラクタで作成されるため通常は null ではないが、安全のためチェック
+        if (_overlayView != null)
+        {
+            var tapGesture = _overlayView.GestureRecognizers?.FirstOrDefault();
+            if (tapGesture != null)
+            {
+                _overlayView.RemoveGestureRecognizer(tapGesture);
+                tapGesture.Dispose();
+            }
 
-        _overlayView.RemoveFromSuperview();
-        _overlayView.Dispose();
-        _overlayView = null;
+            _overlayView.RemoveFromSuperview();
+            _overlayView.Dispose();
+            _overlayView = null;
+        }
 
-        _contentViewController.TransitioningDelegate = null;
-        _contentViewController.Dispose();
-        _contentViewController = null;
+        // _contentViewController は Initialize() で作成されるため null の可能性がある
+        if (_contentViewController != null)
+        {
+            _contentViewController.TransitioningDelegate = null;
+            _contentViewController.Dispose();
+            _contentViewController = null;
+        }
 
-        _dialogController.Dispose();
-        _dialogController = null;
+        // _dialogController は Initialize() で作成されるため null の可能性がある
+        if (_dialogController != null)
+        {
+            _dialogController.Dispose();
+            _dialogController = null;
+        }
 
-        _handler.PlatformView?.RemoveFromSuperview();
-        _handler.DisconnectHandler();
-        _handler = null;
+        // _handler は Initialize() で作成されるため null の可能性がある
+        if (_handler != null)
+        {
+            _handler.PlatformView?.RemoveFromSuperview();
+            _handler.DisconnectHandler();
+            _handler = null;
+        }
     }
 
     public async Task<bool> ShowAsync()

@@ -23,14 +23,22 @@ public class ReusableLoading: LoadingBase,IReusableLoading
 
     public override void Dispose()
     {
-        _loadingView.Parent = null;
-        _loadingView.DisposeModalAndChildHandlers();
-        _handler.DisconnectHandler();
-        _handler = null;
-    
-        _loadingView.Destroy();
-        _loadingView.BindingContext = null;
-        _loadingView = null;
+        // _loadingView が null の場合は既に Dispose 済み
+        if (_loadingView != null)
+        {
+            _loadingView.Parent = null;
+            _loadingView.DisposeModalAndChildHandlers();
+            _loadingView.Destroy();
+            _loadingView.BindingContext = null;
+            _loadingView = null;
+        }
+
+        // _handler は Initialize() で作成されるため null の可能性がある
+        if (_handler != null)
+        {
+            _handler.DisconnectHandler();
+            _handler = null;
+        }
 
         base.Dispose();
     }
