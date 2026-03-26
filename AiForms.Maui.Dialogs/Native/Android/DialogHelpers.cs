@@ -18,8 +18,30 @@ using MauiSize = Microsoft.Maui.Graphics.Size;
 using Microsoft.Maui.Controls.Platform;
 using Application = Microsoft.Maui.Controls.Application;
 using Android.OS;
+using AndroidX.Fragment.App;
 
 namespace AiForms.Dialogs.Droid;
+
+/// <summary>
+/// DialogFragment を安全に表示するための拡張メソッド。
+/// Activity が onSaveInstanceState の後の状態でも IllegalStateException を回避する。
+/// </summary>
+public static class DialogFragmentExtensions
+{
+	/// <summary>
+	/// DialogFragment を状態ロスを許容して表示する。
+	/// onSaveInstanceState の後でも IllegalStateException を発生させずに表示できる。
+	/// </summary>
+	/// <param name="dialogFragment">表示する DialogFragment</param>
+	/// <param name="fragmentManager">FragmentManager</param>
+	/// <param name="tag">フラグメントタグ</param>
+	public static void ShowAllowingStateLoss(this AndroidX.Fragment.App.DialogFragment dialogFragment, AndroidX.Fragment.App.FragmentManager fragmentManager, string tag)
+	{
+		var ft = fragmentManager.BeginTransaction();
+		ft.Add(dialogFragment, tag);
+		ft.CommitAllowingStateLoss();
+	}
+}
 
 public static class DialogHelpers
 {
