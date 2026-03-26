@@ -84,7 +84,8 @@ public class ReusableLoading: LoadingBase,IReusableLoading
 
         var fm = FragmentManager;
         if (fm == null || fm.IsDestroyed) return;
-        PlatformDialog.Show(fm, Loading.LoadingDialogTag);
+        // onSaveInstanceState 後でも IllegalStateException を回避するため ShowAllowingStateLoss を使用
+        PlatformDialog.ShowAllowingStateLoss(fm, Loading.LoadingDialogTag);
     }
 
     public async Task Hide()

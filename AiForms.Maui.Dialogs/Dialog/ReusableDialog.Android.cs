@@ -160,7 +160,8 @@ public class ReusableDialog : Java.Lang.Object, IReusableDialog
         bundle.PutSerializable("extraDialogPayload", payload);
         _platformDialog = new ExtraPlatformDialog();
         _platformDialog.Arguments = bundle;
-        _platformDialog.Show(fm, _guid.ToString());
+        // onSaveInstanceState 後でも IllegalStateException を回避するため ShowAllowingStateLoss を使用
+        _platformDialog.ShowAllowingStateLoss(fm, _guid.ToString());
 
         try
         {
@@ -218,7 +219,8 @@ public class ReusableDialog : Java.Lang.Object, IReusableDialog
         bundle.PutSerializable("extraDialogPayload", payload);
         _platformDialog = new ExtraPlatformDialog();
         _platformDialog.Arguments = bundle;
-        _platformDialog.Show(fm, _guid.ToString());
+        // onSaveInstanceState 後でも IllegalStateException を回避するため ShowAllowingStateLoss を使用
+        _platformDialog.ShowAllowingStateLoss(fm, _guid.ToString());
 
         try
         {
