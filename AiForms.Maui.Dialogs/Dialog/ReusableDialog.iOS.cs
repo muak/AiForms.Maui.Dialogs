@@ -62,7 +62,7 @@ public class ReusableDialog: IReusableDialog
         }
 
         var measure = DialogHelpers.Measure(_dlgView);
-        _dlgView.Layout(new Rect(0, 0, measure.Width, measure.Height));
+        _dlgView.Arrange(new Rect(0, 0, measure.Width, measure.Height));
 
         _contentViewController = new ContentViewController(_dlgView.AutoRotateForIOS)
         {

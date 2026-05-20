@@ -1,6 +1,7 @@
 ﻿using AiForms.Dialogs;
 using Reactive.Bindings;
 using Sample.ViewModels.Dialogs;
+using Sample.Views;
 
 namespace Sample.ViewModels;
 
@@ -18,7 +19,8 @@ public class SurveyPageViewModel:BindableBase, IPageLifecycleAware
             // await Task.Delay(5000);
             //
             // await custom.Hide();
-            var ret = await AiForms.Dialogs.Dialog.Instance.ShowResultFromModelAsync<VmDialogViewModel,int, VmTestResult>(50);
+            // var ret = await AiForms.Dialogs.Dialog.Instance.ShowResultFromModelAsync<VmDialogViewModel,int, VmTestResult>(50);
+            await AiForms.Dialogs.Dialog.Instance.ShowAsync(new TestDialog());
         });
     }
 

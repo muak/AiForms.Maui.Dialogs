@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Documents/">
+    <File Path="LICENSE.txt" />
+    <File Path="README-ja.md" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="AiForms.Maui.Dialogs/AiForms.Maui.Dialogs.csproj" />
+  <Project Path="Sample/Sample.csproj" />
+</Solution>

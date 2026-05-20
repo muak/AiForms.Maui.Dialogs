@@ -49,7 +49,7 @@ public class ReusableDialog : Java.Lang.Object, IReusableDialog
         _handler = DialogHelpers.CreateNewHandler(_dlgView);
 
         var measure = DialogHelpers.Measure(_dlgView);
-        _dlgView.Layout(new Rect(0, 0, measure.Width, measure.Height));
+        _dlgView.Arrange(new Rect(0, 0, measure.Width, measure.Height));
 
         _container = DialogHelpers.SetViewAppearance(_dlgView, _handler.PlatformView as ViewGroup);
 

@@ -178,7 +178,13 @@ public class ExtraView:ContentView
             var width = WidthRequest < 0 ? Width : WidthRequest;
             var height = HeightRequest < 0 ? Height : HeightRequest;
 
-            Layout(new Rect(X, Y, width, height));
+            // .NET 10 では ArrangeOverride が ComputeFrame 経由になり DesiredSize に
+            // 依存するため、Arrange の前に Measure を呼んで DesiredSize を確定させる。
+            var measureWidth = width > 0 ? width : double.PositiveInfinity;
+            var measureHeight = height > 0 ? height : double.PositiveInfinity;
+            ((IView)this).Measure(measureWidth, measureHeight);
+
+            ArrangeOverride(new Rect(X, Y, width, height));
             LayoutNative?.Invoke();
         }
     }

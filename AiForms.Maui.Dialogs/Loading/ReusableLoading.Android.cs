@@ -155,7 +155,7 @@ public class ReusableLoading: LoadingBase,IReusableLoading
 
         var measure = DialogHelpers.Measure(_loadingView);
 
-        _loadingView.Layout(new Rect(0, 0, measure.Width, measure.Height));
+        _loadingView.Arrange(new Rect(0, 0, measure.Width, measure.Height));
 
 
         var width = (int)DialogHelpers.Context.ToPixels(_loadingView.Bounds.Width);

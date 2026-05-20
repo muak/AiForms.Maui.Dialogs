@@ -26,7 +26,7 @@ public partial class Toast
         var handler = DialogHelpers.CreateNewHandler(view);
 
         var measure = DialogHelpers.Measure(view);
-        view.Layout(new Rect(new Point(0,0),measure));
+        view.Arrange(new Rect(new Point(0,0),measure));
 
         handler.PlatformView.Alpha = 0;
         if (view.CornerRadius > 0)

@@ -3,6 +3,7 @@ using System.Reflection;
 using AiForms.Dialogs;
 using UIKit;
 using CoreGraphics;
+using Microsoft.Maui;
 using Microsoft.Maui.Platform;
 using AiForms.Dialogs.Extensions;
 using Microsoft.Maui.Controls.PlatformConfiguration;
@@ -113,7 +114,10 @@ public static class DialogHelpers
             return new Size(reqWidth,reqHeight);
         }
 
-        // If both width and height are proportional, Measure is not called.
+        // 幅・高さ両方が確定値の場合でも、.NET 10 では Arrange/Layout が ComputeFrame
+        // 経由になり DesiredSize を参照するため、ここで明示的に Measure を呼んで
+        // DesiredSize を確定させないと Frame.Height (Width) が 0 になる。
+        ((IView)view).Measure(fWidth, fHeight);
         return new Size(fWidth, fHeight);
     }
 
