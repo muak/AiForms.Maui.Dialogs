@@ -9,6 +9,7 @@ using Android.Graphics.Drawables;
 using Android.Views;
 using Android.Widget;
 using AndroidX.CardView.Widget;
+using Microsoft.Maui;
 using Microsoft.Maui.Platform;
 using Rect = Android.Graphics.Rect;
 using Size = System.Drawing.Size;
@@ -200,6 +201,10 @@ public static class DialogHelpers
 			return new MauiSize(reqWidth, reqHeight);
 		}
 
+		// 幅・高さ両方が確定値の場合でも、.NET 10 では Arrange/Layout が ComputeFrame
+		// 経由になり DesiredSize を参照するため、ここで明示的に Measure を呼んで
+		// DesiredSize を確定させないと Frame.Height (Width) が 0 になる。
+		((IView)view).Measure(fWidth, fHeight);
 		return new MauiSize(fWidth, fHeight);
 	}
 

@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net9.0;net9.0-android;net9.0-ios</TargetFrameworks>		
+		<TargetFrameworks>net10.0;net10.0-android;net10.0-ios</TargetFrameworks>
 		<UseMaui>true</UseMaui>
-		<MauiVersion>9.0.40</MauiVersion>
+		<MauiVersion>10.0.60</MauiVersion>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 
@@ -21,18 +21,18 @@
 		<PackageIconUrl>https://raw.githubusercontent.com/muak/AiForms.Dialogs/master/images/icon.png</PackageIconUrl>
 		<Description>This is a collection of Custom Dialogs (Loading, Toast, CustomDialog) that can be defined with XAML for .NET MAUI (Android / iOS). This allows you to freely design the dialog content and arrange anywhere without custom renderer and effects.</Description>
 		<PackageReleaseNotes>
-			.NET9 supported / Dialog.ShowResultFromModelAsync implemented
+			.NET10 supported
         </PackageReleaseNotes>
 		<PackageTags>MAUI dialog toast loading progress popup xaml netstandard ios android</PackageTags>
 
 		<Configurations>Debug;Release</Configurations>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU' And $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
 	  <EnableCodeSigning>False</EnableCodeSigning>
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU' And $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -44,24 +44,24 @@
 	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
 
-	<!-- Android -->
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net9.0-android')) != true">
+	<!-- Android以外 -->
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'android'">
 		<Compile Remove="**\**\*.Android.cs" />
 		<None Include="**\**\*.Android.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 		<Compile Remove="**\Android\**\*.cs" />
-		<None Include="**\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />		
+		<None Include="**\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 	</ItemGroup>
 
-	<!-- iOS -->
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net9.0-ios')) != true">
+	<!-- iOS以外 -->
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'ios'">
 		<Compile Remove="**\**\*.iOS.cs" />
 		<None Include="**\**\*.iOS.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 		<Compile Remove="**\iOS\**\*.cs" />
 		<None Include="**\iOS\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 	</ItemGroup>
 
-	<!-- NET -->
-	<ItemGroup Condition="'$(TargetFramework)' != 'net9.0'">
+	<!-- プラットフォーム固有ビルド以外 -->
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != ''">
 		<Compile Remove="**\**\*.Net.cs" />
 		<None Include="**\**\*.Net.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 	</ItemGroup>

@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net9.0-android;net9.0-ios</TargetFrameworks>		
+		<TargetFrameworks>net10.0-android;net10.0-ios</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>Sample</RootNamespace>
 		<UseMaui>true</UseMaui>
-		<MauiVersion>9.0.40</MauiVersion>
+		<MauiVersion>10.0.60</MauiVersion>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 
@@ -24,11 +24,11 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">26.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU' And $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
 		<CodesignKey>iPhone Developer</CodesignKey>
 		<CreatePackage>false</CreatePackage>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU' And $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
 	  <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 	<ItemGroup>
@@ -55,7 +55,7 @@
 	  <None Remove="ViewModels\Dialogs\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="AiForms.Maui.SettingsView" Version="1.0.17" />
+	  <PackageReference Include="AiForms.Maui.SettingsView" Version="9.0.*-*" />
 	  <PackageReference Include="Prism.DryIoc.Maui" Version="9.0.271-pre" />
 	  <PackageReference Include="ReactiveProperty" Version="9.3.4" />
 	  <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />

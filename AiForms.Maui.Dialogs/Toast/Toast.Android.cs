@@ -51,7 +51,7 @@ public partial class Toast
         var viewHandler = DialogHelpers.CreateNewHandler(view);
 
         var measure = DialogHelpers.Measure(view);
-        view.Layout(new Rect(new Point(0, 0), measure));
+        view.Arrange(new Rect(new Point(0, 0), measure));
 
         var realW = (int)DialogHelpers.Context.ToPixels(measure.Width);
         var realH = (int)DialogHelpers.Context.ToPixels(measure.Height);

@@ -14,14 +14,7 @@ public partial class TestDialog : DialogView
 
     void Button_Clicked(System.Object sender, System.EventArgs e)
     {
-        MainThread.BeginInvokeOnMainThread(() =>
-        {
-            //(this.Parent as Page).DisplayAlert("", "Hoge","OK");
-            //(this.Parent as Page).DisplayAlert("", "Fuga", "OK");
-            AiForms.Dialogs.Dialog.Instance.ShowAsync<DialogTestView>();
-        });
-        //DialogNotifier.Complete();
-                 
+        this.HeightRequest += 50;
     }
 
     public override void Destroy()

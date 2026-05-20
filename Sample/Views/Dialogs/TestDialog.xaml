@@ -4,25 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:extra="clr-namespace:AiForms.Dialogs;assembly=AiForms.Maui.Dialogs"
     x:Class="Sample.Views.TestDialog"
-    HorizontalLayoutAlignment="Fill"
-    VerticalLayoutAlignment="Center"
-    BackgroundColor="AliceBlue"
-    UseCurrentPageLocation="False"
-    DialogMargin="16"
-    Padding="10"
-    CornerRadius="16"
+    HorizontalLayoutAlignment="Center" VerticalLayoutAlignment="Center"
+    WidthRequest="250"
+    HeightRequest="400"
+    CornerRadius="10" 
     OverlayColor="#80000000"
+    IsCanceledOnTouchOutside="True"
     >
-    <ScrollView>
-    <Grid RowDefinitions="*,30">
-        
-       
-            <Label Grid.Row="0" Text="テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト" />
-        
-
-        
-        <Button Grid.Row="1" Text="OK" Clicked="Button_Clicked" BackgroundColor="Yellow"
-                />
+    
+    <Grid RowDefinitions="Auto,*,Auto"
+          BackgroundColor="White">
+        <Label Grid.Row="0" Text="Test Dialog" FontSize="24" HorizontalOptions="Center" Margin="0,16,0,16"/>
+        <Label Grid.Row="1" Text="This is a test dialog." FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <Button Grid.Row="2" Text="Tap" Clicked="Button_Clicked" />
     </Grid>
-    </ScrollView>
 </extra:DialogView>
