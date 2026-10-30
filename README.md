@@ -2,6 +2,12 @@
 
 This is a collection of Custom Dialogs that can be defined with XAML for .NET MAUI (Android / iOS).
 
+> [!IMPORTANT]
+> **The successor library, [KsDialogs](https://github.com/kamusoft/KsDialogs), is now available.**
+>
+> KsDialogs presents Dialog, Loading, and Toast UI from anywhere in an application on iOS, Android, .NET MAUI, and Kotlin Multiplatform, built on native implementations for both platforms. For .NET MAUI, install the [`KsDialogs.Maui`](https://www.nuget.org/packages/KsDialogs.Maui/) package.
+> Future development will continue in KsDialogs, and no further updates are planned for this library. For new projects, we recommend KsDialogs. To migrate existing dialog code, see the [migration guide from AiForms.Maui.Dialogs](https://github.com/kamusoft/KsDialogs/blob/main/skills/en/ksdialogs-aiforms-migration/SKILL.md).
+
 [Japanese](./README-ja.md)
 
 [![Build status](https://dev.azure.com/kamusoft/NugetCI/_apis/build/status/AiForms.Maui.Dialogs)](https://dev.azure.com/kamusoft/NugetCI/_build/latest?definitionId=34)

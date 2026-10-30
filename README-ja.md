@@ -1,6 +1,12 @@
 # AiForms.Dialogs for .NET MAUI
 AiForms.Dialogs は .NET MAUI で カスタムダイアログを XAML を使って簡単に作成して自由な位置に表示できるライブラリです。Android と iOS に対応しています。
 
+> [!IMPORTANT]
+> **後継ライブラリ [KsDialogs](https://github.com/kamusoft/KsDialogs) を公開しました。**
+>
+> KsDialogsは、iOS、Android、.NET MAUI、Kotlin MultiplatformでDialog・Loading・Toastをアプリケーションのどこからでも表示できるライブラリで、両platformのNative実装を土台にしています。.NET MAUIでは [`KsDialogs.Maui`](https://www.nuget.org/packages/KsDialogs.Maui/) パッケージを導入してください。
+> 今後の開発はKsDialogsで行うため、このライブラリの更新は予定していません。新規プロジェクトではKsDialogsの利用をおすすめします。既存のダイアログを移行する場合は [AiForms.Maui.Dialogsからの移行ガイド](https://github.com/kamusoft/KsDialogs/blob/main/skills/ja/ksdialogs-aiforms-migration/SKILL.md) を参照してください。
+
 [![Build status](https://dev.azure.com/kamusoft/NugetCI/_apis/build/status/AiForms.Maui.Dialogs)](https://dev.azure.com/kamusoft/NugetCI/_build/latest?definitionId=34)
 
 ## 機能
